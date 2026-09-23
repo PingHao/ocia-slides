@@ -2,11 +2,12 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>成人慕道 第五課 — 蒙揀選子民的偉大領袖：梅瑟</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0d1020; font-family: 'Songti TC', 'PMingLiU', 'Noto Serif TC', Georgia, serif; color: #f3efe4; overflow: hidden; }
+  html, body { height: 100%; }
+  body { background: #0d1020; font-family: 'Songti TC', 'PMingLiU', 'Noto Serif TC', Georgia, serif; color: #f3efe4; overflow: hidden; overscroll-behavior: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
   body.lang-en { font-family: Georgia, 'Times New Roman', serif; }
 
   /* Language toggle */
@@ -84,6 +85,42 @@
   .notes.on { display: block; }
   .notes .label { color: #c9a84c; letter-spacing: 0.2em; font-size: 0.85vw; margin-bottom: 0.8vh; }
   .hint { position: fixed; bottom: 2.2vh; left: 2.5vw; color: #8a93ac; font-size: 0.85vw; z-index: 10; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 900px), (max-height: 500px) {
+    .content .text { width: 80%; padding: 2.5vh 4vw 2.5vh 6vw; }
+    h2 { font-size: 4.4vw; }
+    h2 .time { font-size: 2.6vw; }
+    h2 .opt { font-size: 2.4vw; }
+    li { font-size: 3.3vw; margin-bottom: 1.6vh; padding-left: 3.5vw; }
+    li::before { top: 0.2em; }
+    blockquote { font-size: 3vw; padding: 1.6vh 2.5vw; }
+    th, td { font-size: 2.9vw; padding: 1vh 1.2vw; }
+    .arrow-line { font-size: 3.1vw; }
+    .keyline { font-size: 3vw; padding: 1.6vh 2vw; }
+    .disc { font-size: 3vw; }
+    .shema { font-size: 2.9vw; line-height: 1.8; padding: 1.6vh 2.5vw; }
+    .shema .lbl { font-size: 2.5vw; }
+    .imgcap { font-size: 2.4vw; }
+    .text.dense li { font-size: 2.8vw; margin-bottom: 1.2vh; }
+    .text.dense blockquote { font-size: 2.7vw; }
+    .text.dense .shema { font-size: 2.6vw; }
+    .text.dense h2 { font-size: 3.6vw; }
+    .text.dense .keyline { font-size: 2.7vw; }
+    .hero h1 { font-size: 7.5vw; }
+    .hero .kicker { font-size: 2.5vw; }
+    .hero .subtitle { font-size: 3.6vw; }
+    .hero .presenter { font-size: 3.4vw; }
+    .hero .prayer { font-size: 3vw; max-width: 90vw; }
+    .nav button { font-size: 3.4vw; padding: 1.2vh 2.8vw; }
+    .counter { font-size: 2.6vw; }
+    .steps { bottom: 3vh; }
+    .steps span { width: 1.8vw; height: 1.8vw; }
+    .hint { font-size: 2.2vw; max-width: 40vw; line-height: 1.4; }
+    .notes { font-size: 3vw; }
+    .notes .label { font-size: 2.4vw; }
+    .progress { height: 0.8vh; }
+  }
 </style>
 </head>
 <body class="lang-zh">
@@ -344,9 +381,11 @@
   <span class="counter" id="counter">1 / 16</span>
   <button onclick="prev()">&#8592;</button>
   <button onclick="next()">&#8594;</button>
+  <button onclick="toggleNotes()" title="Notes">&#128908;</button>
+  <button onclick="toggleLang()" title="Language">中/EN</button>
 </div>
 <div class="steps" id="steps"><span></span><span></span></div>
-<div class="hint"><span class="zh">&#8594; 先看圖片，再按一次顯示文字 · N = 講員筆記 · I = 只看圖片 · L = 切換中/English</span><span class="en">&#8594; image first, press again for text · N = presenter notes · I = image only · L = toggle 中文/English</span></div>
+<div class="hint"><span class="zh">&#8592; &#8594; 或滑動 · 先看圖，再按一次顯示文字 · I = 只看圖片 · L = 切換中/English</span><span class="en">&#8592; &#8594; or swipe · image first, press again for text · I = image only · L = toggle 中文/English</span></div>
 
 <div class="notes" id="notes">
   <div class="label">&#127908; <span class="zh">講員筆記</span><span class="en">Presenter notes</span></div>
@@ -391,8 +430,8 @@
     "15 — ★PROTECTED (the peak). Table optional — pick two rows. Read Deut 30:6 yourself, slowly. Connect to this morning's Prayer after Communion. Land: 'We need a Savior.' Do not rush.",
     "16 — Unhurried. Skip takeaways if late; pray the closing prayer slowly — it is the last thing they remember."
   ];
-  let cur = 0;      // slide index
-  let revealed = false; // step 1 (image only) or step 2 (text shown)
+  let cur = 0;
+  let revealed = false;
   const deck = document.getElementById('deck');
   const slides = document.querySelectorAll('.slide');
   function updateNotes() {
@@ -421,19 +460,48 @@
     else if (cur > 0) { cur--; revealed = true; }
     show();
   }
+  function toggleNotes() { document.getElementById('notes').classList.toggle('on'); }
   function toggleLang() {
     document.body.classList.toggle('lang-zh');
     document.body.classList.toggle('lang-en');
     updateNotes();
   }
+
+  // Keyboard (desktop)
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
     if (e.key === 'ArrowLeft') prev();
     const k = e.key.toLowerCase();
-    if (k === 'n') document.getElementById('notes').classList.toggle('on');
+    if (k === 'n') toggleNotes();
     if (k === 'i') deck.classList.toggle('image-mode');
     if (k === 'l') toggleLang();
   });
+
+  // Swipe gestures (mobile)
+  let tX = null, tY = null, swiped = false;
+  document.addEventListener('touchstart', e => {
+    tX = e.touches[0].clientX; tY = e.touches[0].clientY; swiped = false;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    if (tX === null) return;
+    const dx = e.changedTouches[0].clientX - tX;
+    const dy = e.changedTouches[0].clientY - tY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      swiped = true;
+      if (dx < 0) next(); else prev();
+    }
+    tX = null; tY = null;
+  }, { passive: true });
+
+  // Tap zones (mobile): left edge = back, right edge = forward, middle = safe
+  document.addEventListener('click', e => {
+    if (swiped) { swiped = false; return; }
+    if (e.target.closest('a, button, .notes')) return;
+    const w = window.innerWidth;
+    if (e.clientX > w * 0.78) next();
+    else if (e.clientX < w * 0.22) prev();
+  });
+
   // Fallback for slide 1 background filename
   (function(){ const t = new Image(); t.onerror = function(){ document.querySelector('.hero').style.backgroundImage = "url('moses-slide1.png')"; }; t.src = 'moses-slide1-red-sea.png'; })();
   show();
