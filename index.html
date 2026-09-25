@@ -1,510 +1,289 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>成人慕道 第五課 — 蒙揀選子民的偉大領袖：梅瑟</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Decks — Home</title>
 <style>
+  :root {
+    --bg: #0f1117;
+    --surface: #171a23;
+    --surface-hover: #1e2230;
+    --border: #2a2f3e;
+    --text: #e8eaf0;
+    --text-muted: #9aa3b5;
+    --accent: #6c8cff;
+    --accent-soft: rgba(108, 140, 255, 0.12);
+    --radius: 16px;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    --transition: 220ms ease;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f5f6fa;
+      --surface: #ffffff;
+      --surface-hover: #ffffff;
+      --border: #e3e6ef;
+      --text: #1a1d27;
+      --text-muted: #5c6474;
+      --accent: #4a6cf7;
+      --accent-soft: rgba(74, 108, 247, 0.08);
+      --shadow: 0 8px 30px rgba(20, 30, 60, 0.10);
+    }
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; }
-  body { background: #0d1020; font-family: 'Songti TC', 'PMingLiU', 'Noto Serif TC', Georgia, serif; color: #f3efe4; overflow: hidden; overscroll-behavior: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
-  body.lang-en { font-family: Georgia, 'Times New Roman', serif; }
 
-  /* Language toggle */
-  body.lang-zh .en { display: none !important; }
-  body.lang-en .zh { display: none !important; }
+  html { scroll-behavior: smooth; }
 
-  .deck { position: relative; width: 100vw; height: 100vh; }
-  .slide { position: absolute; inset: 0; display: none; }
-  .slide.active { display: block; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
 
-  /* Two-step reveal: step 1 = image only, step 2 = gradient + text */
-  .content .text, .content .bg::after, .overlay { opacity: 0; transition: opacity 0.55s ease; }
-  .slide.revealed .content .text, .slide.revealed .content .bg::after, .slide.revealed .overlay { opacity: 1; }
-  .deck.image-mode .content .text, .deck.image-mode .content .bg::after, .deck.image-mode .overlay { opacity: 0 !important; }
+  /* ---------- Header ---------- */
+  .site-header {
+    padding: 3rem 1.5rem 1.5rem;
+    text-align: center;
+  }
 
-  /* Slide 1 */
-  .hero { background-size: cover; background-position: center; }
-  .hero .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,10,25,0.25) 0%, rgba(8,10,25,0.55) 60%, rgba(8,10,25,0.85) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 5vh 7vw; }
-  .hero h1 { font-size: 4vw; font-weight: normal; color: #f7e8c3; text-shadow: 0 2px 14px rgba(0,0,0,0.85); margin-bottom: 1.2vh; letter-spacing: 0.06em; }
-  .hero .subtitle { font-size: 1.6vw; font-style: italic; color: #d8cba8; margin-bottom: 1.8vh; }
-  .hero .presenter { font-size: 1.4vw; color: #e6ddc4; margin-bottom: 2.2vh; }
-  .hero .prayer { font-size: 1.3vw; color: #b9c0d4; max-width: 62vw; border-left: 3px solid #c9a84c; padding-left: 1.2vw; line-height: 1.65; }
-  .hero .kicker { font-size: 1.05vw; letter-spacing: 0.2em; color: #c9a84c; margin-bottom: 1.5vh; }
+  .site-header .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
 
-  /* Content slides */
-  .content { position: relative; height: 100vh; }
-  .content .bg { position: absolute; inset: 0; z-index: 1; }
-  .content .bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-  .content .bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,16,32,0.97) 0%, rgba(13,16,32,0.90) 38%, rgba(13,16,32,0.55) 60%, rgba(13,16,32,0.08) 100%); }
-  .content .text { position: relative; z-index: 2; width: 52%; height: 100%; padding: 3.6vh 2vw 3.6vh 5vw; display: flex; flex-direction: column; justify-content: center; }
+  .site-header h1 {
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
 
-  h2 { font-size: 2.2vw; font-weight: normal; color: #f7e8c3; margin-bottom: 1.2vh; text-shadow: 0 1px 8px rgba(0,0,0,0.6); letter-spacing: 0.04em; }
-  h2 .time { font-size: 0.95vw; color: #c9a84c; vertical-align: middle; margin-left: 0.5vw; letter-spacing: 0; }
-  h2 .opt { font-size: 0.85vw; color: #8a92ab; font-style: italic; }
-  ul { margin: 1.2vh 0 1.5vh 0; list-style: none; }
-  li { font-size: 1.25vw; line-height: 1.55; margin-bottom: 1.3vh; padding-left: 1.6vw; position: relative; color: #f0ecdf; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
-  li::before { content: '◆'; position: absolute; left: 0; top: 0.1em; color: #c9a84c; font-size: 0.7em; }
-  li strong, li b { color: #f7e8c3; }
-  blockquote { background: rgba(201,168,76,0.10); border-left: 3px solid #c9a84c; padding: 1.4vh 1.2vw; font-size: 1.15vw; color: #e6ddc4; margin-bottom: 1.4vh; line-height: 1.65; }
-  blockquote a { color: #d9b95e; text-decoration: none; border-bottom: 1px dotted #d9b95e; }
-  blockquote a:hover { color: #f7e8c3; }
-  table { border-collapse: collapse; width: 100%; margin: 1vh 0; }
-  th, td { border-bottom: 1px solid rgba(201,168,76,0.30); padding: 0.7vh 0.6vw; font-size: 1vw; text-align: left; color: #f0ecdf; }
-  th { color: #f7e8c3; font-weight: normal; }
-  td b { color: #f7e8c3; }
-  .arrow-line { font-size: 1.15vw; color: #f7e8c3; margin-top: 1.2vh; letter-spacing: 0.04em; text-shadow: 0 1px 6px rgba(0,0,0,0.7); line-height: 1.6; }
-  .arrow-line .chain { color: #d9b95e; }
-  .keyline { font-size: 1.2vw; color: #f7e8c3; border: 1px solid rgba(201,168,76,0.45); background: rgba(201,168,76,0.10); padding: 1.2vh 1vw; border-radius: 4px; margin-top: 1.2vh; line-height: 1.55; }
-  .disc { font-style: italic; color: #d8cba8; font-size: 1.15vw; margin-top: 1vh; line-height: 1.55; }
-  .shema { background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.5); padding: 1.4vh 1.2vw; font-size: 1.08vw; line-height: 1.8; color: #f0ecdf; margin: 1vh 0 1.2vh 0; }
-  .shema .lbl { color: #c9a84c; font-size: 0.9vw; letter-spacing: 0.1em; margin-bottom: 0.6vh; }
-  .imgcap { font-size: 0.9vw; color: #b3ab8d; font-style: italic; margin-top: 0.9vh; }
+  .site-header p {
+    margin: 0.75rem auto 0;
+    max-width: 42rem;
+    color: var(--text-muted);
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.55;
+  }
 
-  /* Dense slides */
-  .text.dense li { font-size: 1.1vw; margin-bottom: 0.9vh; }
-  .text.dense blockquote { font-size: 1.02vw; padding: 1.1vh 1vw; }
-  .text.dense .shema { font-size: 1vw; line-height: 1.7; padding: 1.1vh 1vw; }
-  .text.dense h2 { font-size: 1.9vw; }
-  .text.dense .keyline { font-size: 1.08vw; }
+  /* ---------- Deck grid ---------- */
+  .decks {
+    flex: 1;
+    width: min(1200px, 100% - 3rem);
+    margin: 1.5rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+    padding-bottom: 3rem;
+  }
 
-  /* Step indicator */
-  .steps { position: fixed; bottom: 2.2vh; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5vw; z-index: 10; }
-  .steps span { width: 0.6vw; height: 0.6vw; border-radius: 50%; background: rgba(201,168,76,0.25); }
-  .steps span.on { background: #c9a84c; }
+  /* ---------- Deck card ---------- */
+  .deck {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition),
+                border-color var(--transition), background var(--transition);
+  }
 
-  /* Navigation */
-  .nav { position: fixed; bottom: 2.2vh; right: 2.5vw; display: flex; gap: 0.6vw; align-items: center; z-index: 10; }
-  .nav button { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.5); color: #f7e8c3; font-family: Georgia, serif; font-size: 1vw; padding: 0.5vh 1vw; cursor: pointer; border-radius: 4px; }
-  .nav button:hover { background: rgba(201,168,76,0.35); }
-  .counter { color: #8a92ab; font-size: 0.95vw; }
-  .progress { position: fixed; top: 0; left: 0; height: 0.45vh; background: #c9a84c; z-index: 30; transition: width 0.3s; }
+  .deck:hover,
+  .deck:focus-visible {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    background: var(--surface-hover);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.30);
+  }
 
-  /* Presenter notes */
-  .notes { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(5,7,18,0.95); border-top: 2px solid #c9a84c; color: #e9e4d6; font-size: 1.05vw; line-height: 1.65; padding: 2vh 5vw 3vh 5vw; display: none; z-index: 20; }
-  .notes.on { display: block; }
-  .notes .label { color: #c9a84c; letter-spacing: 0.2em; font-size: 0.85vw; margin-bottom: 0.8vh; }
-  .hint { position: fixed; bottom: 2.2vh; left: 2.5vw; color: #8a93ac; font-size: 0.85vw; z-index: 10; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+  .deck:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 
-  /* ============ MOBILE ============ */
-  @media (max-width: 900px), (max-height: 500px) {
-    .content .text { width: 80%; padding: 2.5vh 4vw 2.5vh 6vw; }
-    h2 { font-size: 4.4vw; }
-    h2 .time { font-size: 2.6vw; }
-    h2 .opt { font-size: 2.4vw; }
-    li { font-size: 3.3vw; margin-bottom: 1.6vh; padding-left: 3.5vw; }
-    li::before { top: 0.2em; }
-    blockquote { font-size: 3vw; padding: 1.6vh 2.5vw; }
-    th, td { font-size: 2.9vw; padding: 1vh 1.2vw; }
-    .arrow-line { font-size: 3.1vw; }
-    .keyline { font-size: 3vw; padding: 1.6vh 2vw; }
-    .disc { font-size: 3vw; }
-    .shema { font-size: 2.9vw; line-height: 1.8; padding: 1.6vh 2.5vw; }
-    .shema .lbl { font-size: 2.5vw; }
-    .imgcap { font-size: 2.4vw; }
-    .text.dense li { font-size: 2.8vw; margin-bottom: 1.2vh; }
-    .text.dense blockquote { font-size: 2.7vw; }
-    .text.dense .shema { font-size: 2.6vw; }
-    .text.dense h2 { font-size: 3.6vw; }
-    .text.dense .keyline { font-size: 2.7vw; }
-    .hero h1 { font-size: 7.5vw; }
-    .hero .kicker { font-size: 2.5vw; }
-    .hero .subtitle { font-size: 3.6vw; }
-    .hero .presenter { font-size: 3.4vw; }
-    .hero .prayer { font-size: 3vw; max-width: 90vw; }
-    .nav button { font-size: 3.4vw; padding: 1.2vh 2.8vw; }
-    .counter { font-size: 2.6vw; }
-    .steps { bottom: 3vh; }
-    .steps span { width: 1.8vw; height: 1.8vw; }
-    .hint { font-size: 2.2vw; max-width: 40vw; line-height: 1.4; }
-    .notes { font-size: 3vw; }
-    .notes .label { font-size: 2.4vw; }
-    .progress { height: 0.8vh; }
+  .deck .thumb {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--accent-soft), var(--surface-hover));
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Preview image — falls back to a numbered badge if image missing */
+  .deck .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .deck .thumb .fallback {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.85;
+    user-select: none;
+  }
+
+  .deck .body {
+    padding: 1.35rem 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .deck h2 {
+    font-size: 1.2rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .deck p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .deck .meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .deck .open {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .deck .arrow {
+    transition: transform var(--transition);
+  }
+
+  .deck:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .decks { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 620px) {
+    .decks {
+      grid-template-columns: 1fr;
+      width: min(100%, 100% - 2rem);
+      gap: 1.25rem;
+    }
+    .site-header { padding-top: 2.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
-<body class="lang-zh">
+<body>
 
-<div class="deck" id="deck">
-<div class="progress" id="progress"></div>
+<header class="site-header">
+  <span class="eyebrow">OCIA Classes</span>
+  <h1>OCIA Classes</h1>
+  <p></p>
+</header>
 
-<!-- 1 標題 -->
-<section class="slide hero active" style="background-image:url('moses-slide1-red-sea.png')">
-  <div class="overlay">
-    <div class="kicker"><span class="zh">成人慕道（OCIA）第五課 · 常年期第二十七主日 · 2026年10月4日</span><span class="en">OCIA Class 5 · 27th Sunday in Ordinary Time · October 4, 2026</span></div>
-    <h1><span class="zh">蒙揀選子民的偉大領袖：梅瑟</span><span class="en">The Great Leader of the Chosen People: Moses</span></h1>
-    <div class="subtitle"><span class="zh">主講：Hao Ping</span><span class="en">Presenter: Hao Ping</span></div>
-    <div class="prayer"><span class="zh"><strong>開課祈禱：</strong>請來，聖神！求祢開啟我們的心，聆聽天主的聖言，讓我們認識梅瑟——天主子民的領袖與代禱者。</span><span class="en"><strong>Opening Prayer:</strong> Come, Holy Spirit. Open our hearts to your Word as we encounter Moses, the leader and intercessor of God's people.</span></div>
-  </div>
-</section>
+<main class="decks">
 
-<!-- 2 旅程中的位置 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide2-journey.png" onerror="this.onerror=null;this.src='moses-slide2.png'" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">我們在旅程中的位置<span class="time">（3–5分鐘）</span></span><span class="en">Where We Are in the Journey<span class="time">(3–5 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">上一課：「天主所啟示的宗教」——是天主主動說話；人無法單靠自己尋獲天主</span><span class="en">Previous class: "Religion Revealed by God" — God speaks; he is not discovered by human effort alone</span></li>
-      <li><span class="zh">今天：天主不只說話——祂<b>召喚一個民族</b>，並興起一位領袖</span><span class="en">Today: God does not just speak — he <b>calls a people</b> and raises up a leader</span></li>
-      <li><span class="zh">今晨彌撒（依撒意亞的葡萄園）：上主親自栽種、看守的民族，正是今天的故事</span><span class="en">This morning's readings: the Lord's vineyard — the people God plants and tends</span></li>
-    </ul>
-    <blockquote><span class="zh">「聖祖之後，天主形成了以色列民族，作自己的子民：把他們從埃及的奴役中拯救出來，與他們訂立西乃山的盟約，並藉著梅瑟把自己的法律賜給他們。」（參<a href="https://www.ccreadbible.org/Members/Bona/For-Bible/catechism" target="_blank">《天主教教理》第62、72號</a>）</span><span class="en">"God formed Israel as his people by freeing them from slavery in Egypt, established with them the covenant of Mount Sinai, and gave them his law through Moses." (cf. <a href="https://www.ccreadbible.org/Members/Bona/For-Bible/catechism-chinese-english" target="_blank">CCC 62, 72</a>)</span></blockquote>
-  </div>
-</div></section>
-
-<!-- 3 梅瑟五書 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide3-torah.png" onerror="this.onerror=null;this.src='moses-slide3.png'" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">故事的地圖：梅瑟五書<span class="time">（5–8分鐘）</span></span><span class="en">The Map of the Story: The Five Books of Moses<span class="time">(5–8 min)</span></span></h2>
-    <table>
-      <tr><th><span class="zh">書卷</span><span class="en">Book</span></th><th><span class="zh">原意</span><span class="en">Name means</span></th><th><span class="zh">在故事中的角色</span><span class="en">Role in the story</span></th></tr>
-      <tr><td><b><span class="zh">創世紀</span><span class="en">Genesis</span></b></td><td><span class="zh">「起源」</span><span class="en">"origin"</span></td><td><span class="zh">天主給聖祖們的<b>恩許</b></span><span class="en">God's <b>promise</b></span></td></tr>
-      <tr><td><b><span class="zh">出谷紀</span><span class="en">Exodus</span></b></td><td><span class="zh">「離開」</span><span class="en">"departure"</span></td><td><span class="zh">天主對子民的<b>救贖</b></span><span class="en">God's <b>redemption</b></span></td></tr>
-      <tr><td><b><span class="zh">肋未紀</span><span class="en">Leviticus</span></b></td><td><span class="zh">「關於司祭」</span><span class="en">"concerning the priests"</span></td><td><span class="zh">蒙救贖者如何<b>敬拜</b></span><span class="en">How the redeemed <b>worship</b></span></td></tr>
-      <tr><td><b><span class="zh">戶籍紀</span><span class="en">Numbers</span></b></td><td><span class="zh">「統計」</span><span class="en">"countings"</span></td><td><span class="zh"><b>旅程</b>與信實</span><span class="en">The <b>journey</b></span></td></tr>
-      <tr><td><b><span class="zh">申命紀</span><span class="en">Deuteronomy</span></b></td><td><span class="zh">「重申法律」</span><span class="en">"second law"</span></td><td><span class="zh">為新世代<b>更新盟約</b></span><span class="en"><b>Covenant renewed</b></span></td></tr>
-    </table>
-    <div class="arrow-line"><span class="zh"><span class="chain">恩許 → 救贖 → 敬拜 → 旅程 → 更新</span>　今天的課主要在《出谷紀》</span><span class="en"><span class="chain">promise → redemption → worship → journey → renewal</span> — today's class lives in Exodus</span></div>
-  </div>
-</div></section>
-
-<!-- 4 埃及的長夜 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide4.png" alt=""></div>
-  <div class="text dense">
-    <h2><span class="zh">埃及的長夜：等待救援者的民族<span class="time">（8–11分鐘）</span></span><span class="en">The Long Night of Egypt<span class="time">(8–11 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">約瑟之後，雅各伯一家約<b>七十人</b>定居埃及（創46:26-27），在埃及生養眾多，成為一個民族（出1:7）</span><span class="en">After Joseph, a family of seventy became a nation in Egypt</span></li>
-      <li><span class="zh">「有位不認識約瑟的新王起來統治埃及」（出1:8）——苦役、做磚、殺害男嬰（出1:9-22）</span><span class="en">A new king "who knew not Joseph" turned fear into oppression and death</span></li>
-      <li><span class="zh">天主沒有忘記恩許——祂早已對亞巴郎預言這奴役，並應許親自領他們出來（創15:13-14）</span><span class="en">God had not forgotten his promise to Abraham</span></li>
-      <li><span class="zh">「以色列人……哀號；天主聽見他們的哀號，記起了自己的盟約」（出2:23-25）</span><span class="en">God heard their groaning and remembered his covenant</span></li>
-    </ul>
-    <blockquote><span class="zh">時間：約在公元前第二千年——確實年份尚有爭議；重要的不是年份，而是：天主看似缺席時，仍在工作。</span><span class="en">Date: second millennium B.C., debated — what matters: God was at work even when he seemed absent.</span></blockquote>
-    <div class="keyline"><span class="zh"><b>核心教導：</b>天主的沉默，不等於天主的缺席——祂按自己的時候興起救援者。</span><span class="en"><b>Key teaching:</b> God's silence is not God's absence — in his time he raises up a deliverer.</span></div>
-  </div>
-</div></section>
-
-<!-- 5 梅瑟是誰 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide5.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">梅瑟是誰？（出2）<span class="time">（11–13分鐘）</span></span><span class="en">Who Was Moses? (Exodus 2)<span class="time">(11–13 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">生為希伯來人，正逢法老下令殺害男嬰（出1:22–2:10）</span><span class="en">Born a Hebrew under Pharaoh's decree of death</span></li>
-      <li><span class="zh">從尼羅河獲救，在法老的宮廷中長大（出2:5-10）</span><span class="en">Rescued from the Nile, raised in Pharaoh's household</span></li>
-      <li><span class="zh">成年後因殺埃及人而逃往米德楊曠野（出2:11-15）</span><span class="en">Acted violently and fled to Midian</span></li>
-      <li><span class="zh">四十年牧羊——天主在沉默中預備他</span><span class="en">Forty years as a shepherd — God was preparing him</span></li>
-    </ul>
-    <div class="disc"><span class="zh">討論：從人的角度看，梅瑟的過去似乎使他失去資格——天主為何揀選這樣的人，立他為領袖、先知、立法者與代禱者？</span><span class="en">Discussion: Why would God choose a man whose past seemed to disqualify him?</span></div>
-  </div>
-</div></section>
-
-<!-- 6 焚燒的荊棘 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide6.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">焚燒的荊棘：天主採取主動（出3:1-10）<span class="time">（13–16分鐘）</span></span><span class="en">The Burning Bush: God Takes the Initiative<span class="time">(13–16 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">荊棘<b>焚燒而不毀</b>——梅瑟說：「我要過去看看這奇事」（出3:1-3）</span><span class="en">A bush burning but not consumed</span></li>
-      <li><span class="zh">天主按名召叫：「梅瑟！梅瑟！」他答：「我在這裡」（出3:4）</span><span class="en">God calls him by name — "Here I am!"</span></li>
-      <li><span class="zh">「我是你父親的天主，亞巴郎、依撒格、雅各伯的天主」（出3:6）</span><span class="en">"I am the God of Abraham, Isaac, and Jacob"</span></li>
-      <li><span class="zh">天主看見了子民的苦楚，要親自解救他們——<b>藉著梅瑟</b></span><span class="en">God has seen his people's affliction — and will free them through Moses</span></li>
-    </ul>
-    <blockquote><span class="zh">「在這裡，又一次顯出：是天主先採取主動——祂從焚而不燬的荊棘叢中召叫梅瑟。」（參<a href="https://www.ccreadbible.org/Members/Bona/For-Bible/catechism" target="_blank">《天主教教理》第2575號</a>）</span><span class="en">"Here again the initiative is God's. From the midst of the burning bush he calls Moses." (<a href="https://www.ccreadbible.org/Members/Bona/For-Bible/catechism-chinese-english" target="_blank">CCC 2575</a>)</span></blockquote>
-  </div>
-</div></section>
-
-<!-- 7 天主的名字 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide7.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">天主的名字：「我是自有者」（出3:13-15）<span class="time">（16–18分鐘）</span></span><span class="en">The Name of God: I AM WHO AM<span class="time">(16–18 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">天主啟示自己的名字：「<b>我是自有者</b>」（出3:14）——表達祂生活的、信實的、無可比擬的臨在</span><span class="en">God reveals his name — his living, faithful, incomparable presence</span></li>
-      <li><span class="zh">希伯來聖名（YHWH）指向天主生活的、奧秘的臨在，不能被任何一種哲學解釋窮盡</span><span class="en">The Hebrew name points to God's living, mysterious presence</span></li>
-      <li><span class="zh">這是舊約與新約共通的<b>基本啟示</b>（教理203-204, 280）</span><span class="en">A fundamental revelation for both Covenants</span></li>
-    </ul>
-    <div class="keyline"><span class="zh"><b>伏筆：</b>耶穌把這名字用在自己身上——「在亞巴郎出現以前，我就有」（若8:58）</span><span class="en"><b>Watch for this later:</b> Jesus takes this name — "Before Abraham was, I AM" (Jn 8:58)</span></div>
-  </div>
-</div></section>
-
-<!-- 8 出谷 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide8.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">出谷：天主解救祂的子民（出12–15）<span class="time">（18–21分鐘）</span></span><span class="en">The Exodus: God Frees His People<span class="time">(18–21 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">十災顯示<b>上主勝過法老</b>與埃及所信賴的一切勢力（出7–12）</span><span class="en">The plagues show the LORD's supremacy over Pharaoh and Egypt's powers</span></li>
-      <li><span class="zh"><b>逾越節</b>：羔羊的血使以色列免於死亡（出12）</span><span class="en">The Passover: the lamb's blood saves Israel from death</span></li>
-      <li><span class="zh">過紅海：從奴役到自由、從死亡到生命（出14）</span><span class="en">Crossing the Red Sea: from slavery to freedom</span></li>
-      <li><span class="zh">以色列成為天主的子民——<b>靠天主大能的手</b>，不靠自己的力量</span><span class="en">Israel becomes God's people by his mighty hand</span></li>
-    </ul>
-    <blockquote><span class="zh">「我是上主。我要拯救你們脫離埃及人的重擔，救你們脫離他們的奴役。」（出6:6）</span><span class="en">"I am the LORD. I will free you from the forced labor of the Egyptians." (Ex 6:6)</span></blockquote>
-  </div>
-</div></section>
-
-<!-- 9 西乃盟約與最大的誡命 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide9.png" alt=""></div>
-  <div class="text dense">
-    <h2><span class="zh">西乃盟約與最大的誡命（出19–20；申6）<span class="time">（21–28分鐘）★</span></span><span class="en">The Covenant at Sinai and the Great Commandment<span class="time">(21–28 min) ★</span></span></h2>
-    <ul>
-      <li><span class="zh">盟約：「你們對我應是一個<b>司祭的王國，一個聖潔的國民</b>」（出19:5-6）</span><span class="en">The covenant: "a kingdom of priests, a holy nation"</span></li>
-      <li><span class="zh">天主解救以色列，不只是脫離奴役——更是<b>為了盟約的共融與敬拜</b></span><span class="en">God freed them not merely FROM slavery, but FOR covenant communion and worship</span></li>
-      <li><span class="zh">十誡（出20:1-17）：法律是聖善的，在盟約內賜下，預備以色列迎接基督（教理1961-1964）</span><span class="en">The Decalogue: holy and good, given within the covenant, preparing for Christ</span></li>
-      <li><span class="zh">耶穌稱之為「<b>最大的誡命</b>」（瑪22:37-38）</span><span class="en">Jesus calls it "the greatest commandment"</span></li>
-    </ul>
-    <div class="shema">
-      <div class="lbl"><span class="zh">📖 請一起朗讀（申命紀 6:4-9，思高本）</span><span class="en">📖 Read Aloud Together (Deuteronomy 6:4-9, NABRE)</span></div>
-      <span class="zh">「以色列！你要聽：上主我們的天主，是唯一的天主。你當全心、全靈、全力，愛上主你的天主。我今天吩咐你的這些話，你應牢記在心，並教訓你的兒女；不論你在家裡，或在路上，或臥或立，常應講論；又該繫在你的手上，懸在額上，並刻在你房屋的門框上和門扇上。」</span>
-      <span class="en">"Hear, O Israel! The LORD is our God, the LORD alone! Therefore, you shall love the LORD, your God, with all your heart, and with all your being, and with all your strength... Recite them when you are at home and when you are away, when you lie down and when you get up... Write them on the doorposts of your houses and on your gates."</span>
+  <!-- Deck 1 — edit href, title, description, and preview image -->
+  <a class="deck" href="./moses/index.html">
+    <div class="thumb">
+      <img src="./moses/moses-slide1-red-sea.png" alt="">
     </div>
-    <div class="disc"><span class="zh">反思：若你躺下、起來都念這些話，你的生活會有何不同？</span><span class="en">Reflection: How would your life change if you repeated these words when you lie down and when you get up?</span></div>
-  </div>
-</div></section>
+    <div class="body">
+      <h2>Moses</h2>
+      <p></p>
+      <div class="meta">
+        <span>./deck-1/</span>
+        <span class="open">Open <span class="arrow">&rarr;</span></span>
+      </div>
+    </div>
+  </a>
 
-<!-- 10 會幕與約櫃 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide10.png" alt=""></div>
-  <div class="text dense">
-    <h2><span class="zh">天主教導子民敬拜：會幕與約櫃（出25–31, 40）<span class="time">（28–33分鐘）★</span></span><span class="en">God Teaches His People to Worship<span class="time">(28–33 min) ★</span></span></h2>
-    <ul>
-      <li><span class="zh">西乃之後，天主賜下<b>詳細的敬拜指示</b>：敬拜由天主發起，子民以祭獻、祈禱、服從回應（出25–31）</span><span class="en">God gives detailed instructions for worship — he initiates; his people respond</span></li>
-      <li><span class="zh">「他們應為我建造一座聖所，好讓我<b>住在他們中間</b>」（出25:8）</span><span class="en">"Make me a sanctuary, that I may dwell in their midst"</span></li>
-      <li><span class="zh"><b>會幕</b>：營幕中央的流動聖所——天主住在子民中間</span><span class="en">The Tabernacle: God dwelling at the center of the camp</span></li>
-      <li><span class="zh"><b>約櫃</b>：包純金的皂莢木櫃，上有兩位革魯賓天使；「贖罪蓋」是祂的寶座（出25:10-22）；希9:4 提到櫃內有約版、瑪納、亞倫的棍杖</span><span class="en">The Ark: gold-covered chest, cherubim, the mercy seat as God's throne; Heb 9:4 associates it with the tablets, manna, and Aaron's rod</span></li>
-      <li><span class="zh">上主的<b>榮耀雲彩</b>充滿會幕，並在曠野引領以色列（出40:34-38）</span><span class="en">The glory cloud fills the tabernacle and guides Israel</span></li>
-    </ul>
-    <div class="keyline"><span class="zh"><b>核心教導：</b>天主不但解救子民脫離奴役——更教導他們如何生活在祂面前、敬拜祂。</span><span class="en"><b>Key teaching:</b> God does not only free his people from slavery — he teaches them how to live in his presence and worship him.</span></div>
-  </div>
-</div></section>
+  <!-- Deck 2 -->
+  <a class="deck" href="./eucharist/index.html">
+    <div class="thumb">
+      <img src="./eucharist/01.png" alt="">
+    </div>
+    <div class="body">
+      <h2>The Eucharist</h2>
+      <p></p>
+      <div class="meta">
+        <span>./deck-2/</span>
+        <span class="open">Open <span class="arrow">&rarr;</span></span>
+      </div>
+    </div>
+  </a>
 
-<!-- 11 從以色列的禮儀到我們的 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide11.png" alt=""></div>
-  <div class="text dense">
-    <h2><span class="zh">從以色列的禮儀，到我們的（33–35分鐘）</span><span class="en">From Israel's Liturgy to Ours<span class="time">(33–35 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">雲彩與<b>過紅海預示洗禮</b>；磐石活水與<b>瑪納預示聖體</b>——「天上來的真食糧」（教理1094）</span><span class="en">The cloud and Red Sea prefigure Baptism; the rock and manna prefigure the Eucharist (CCC 1094)</span></li>
-      <li><span class="zh"><b>聖體聖事成全猶太人的逾越節</b>——耶穌在晚餐中賦予它決定性的意義（教理1340）</span><span class="en">The Eucharist fulfills the Jewish Passover (CCC 1340)</span></li>
-      <li><span class="zh"><b>復活守夜禮</b>：教會重讀、重活這些救恩大事——許多望教者在這禮儀中受洗（教理1095）</span><span class="en">At the Easter Vigil the Church re-lives these saving events; many catechumens receive Baptism there</span></li>
-      <li><span class="zh">預象（typology）：聖母瑪利亞成全約櫃的角色——她孕育了降生成人的聖子，「結約之櫃，上主光榮居住之處」（教理2676）</span><span class="en">In Catholic typology, Mary fulfills the Ark's role — she bore the incarnate Son (CCC 2676)</span></li>
-    </ul>
-    <div class="imgcap"><span class="zh">圖：舊約的敬拜，及其在聖體聖事中的成全</span><span class="en">Image: Old Covenant worship and its fulfillment in the Eucharist</span></div>
-  </div>
-</div></section>
+  <!-- Deck 3 -->
+  <a class="deck" href="./incarnation/index.html">
+    <div class="thumb">
+      <img src="./incarnation/01.png" alt="">
+    </div>
+    <div class="body">
+      <h2>Incarnation</h2>
+      <p></p>
+      <div class="meta">
+        <span>./deck-3/</span>
+        <span class="open">Open <span class="arrow">&rarr;</span></span>
+      </div>
+    </div>
+  </a>
 
-<!-- 12 金牛犢 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide12.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">梅瑟的代禱：金牛（出32–34）<span class="time">（35–37分鐘）</span><span class="opt">（可略）</span></span><span class="en">Moses the Intercessor: the Golden Calf<span class="time">(35–37 min)</span> <span class="opt">(optional)</span></span></h2>
-    <ul>
-      <li><span class="zh">梅瑟在山上時，人民在山下造金牛（出32:1-6）</span><span class="en">While Moses is on the mountain, the people make a golden calf</span></li>
-      <li><span class="zh">梅瑟為人民<b>代求</b>；天主寬恕了他們（出32:11-14）</span><span class="en">Moses intercedes; God spares them</span></li>
-      <li><span class="zh">「上主，上主是慈悲寬仁的天主」（出34:6）</span><span class="en">"The LORD is merciful and gracious"</span></li>
-      <li><span class="zh">梅瑟的代禱不與基督獨一的中保競爭——它<b>預表並依賴</b>基督（教理2574）</span><span class="en">His intercession does not compete with Christ's unique mediation — it foreshadows it (CCC 2574)</span></li>
-    </ul>
-  </div>
-</div></section>
+</main>
 
-<!-- 13 曠野四十年 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide13.png" alt=""></div>
-  <div class="text dense">
-    <h2><span class="zh">曠野四十年（戶13–14；申8）<span class="time">（37–40分鐘）</span></span><span class="en">Forty Years in the Wilderness<span class="time">(37–40 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">十二探子窺探客納罕；十人帶回凶訊，人民<b>拒絕進入</b>福地（戶13–14）</span><span class="en">Ten of twelve spies bring a fearful report; the people refuse to enter</span></li>
-      <li><span class="zh">四十年曠野漂流，直到那不信的一代過去（戶14:33-34）</span><span class="en">Forty years of wandering until that generation passes away</span></li>
-      <li><span class="zh">天主卻不離棄：每天降<b>瑪納</b>、磐石出水、衣服未磨損（申8:3-4）；「為考驗你，願知道你心中所想」（申8:2）</span><span class="en">God never abandons them: manna, water from the rock, clothes that did not wear out</span></li>
-      <li><span class="zh">「人生活不只靠餅，也靠上主口中所發的一切話」（申8:3）——<b>耶穌在曠野受試探時引用的正是這句</b>（瑪4:4）</span><span class="en">"Not by bread alone..." — the very verse Jesus quotes in the desert (Mt 4:4)</span></li>
-      <li><span class="zh">銅蛇被舉起，仰望者得生（戶21:9）——<b>耶穌以此預指自己的十字架</b>：「人子也應照樣被舉起來」（若3:14）</span><span class="en">The bronze serpent — Jesus applies it to his crucifixion (Jn 3:14)</span></li>
-    </ul>
-    <div class="keyline"><span class="zh"><b>核心教導：</b>曠野是基督徒生活的寫照——在洗禮與天國之間，我們受考驗、被塑造，由聖體的真瑪納養育。</span><span class="en"><b>Key teaching:</b> The wilderness is the image of the Christian life — tested and formed between Baptism and heaven, fed by the true manna of the Eucharist.</span></div>
-  </div>
-</div></section>
+<footer class="site-footer">
+  Navigate with the cards above &middot; Use arrow keys inside each deck if supported
+</footer>
 
-<!-- 14 梅瑟之死 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide14.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">梅瑟的最後時日：「像我一樣的先知」（申34）<span class="time">（40–41分鐘）</span><span class="opt">（可略）</span></span><span class="en">Moses' Final Days and the Promise of a Prophet<span class="time">(40–41 min)</span> <span class="opt">(optional)</span></span></h2>
-    <ul>
-      <li><span class="zh">從乃波山<b>望見福地</b>，卻不得進入（申34:1-5）</span><span class="en">Moses sees the Promised Land from Nebo but does not enter</span></li>
-      <li><span class="zh">「以後在以色列中，再沒有興起一位像梅瑟一樣的先知，是上主面對面認識的」（申34:10）</span><span class="en">"No prophet has arisen in Israel like Moses, whom the LORD knew face to face"</span></li>
-      <li><span class="zh">「上主你的天主，要從你兄弟中，為你興起<b>一位像我一樣的先知</b>」（申18:15）</span><span class="en">"A prophet like me will the LORD raise up for you" (Deut 18:15)</span></li>
-      <li><span class="zh">初期教會明認這恩許<b>在基督身上應驗</b>（宗3:22-23）</span><span class="en">The early Church read this as fulfilled in Christ (Acts 3:22-23)</span></li>
-    </ul>
-  </div>
-</div></section>
-
-<!-- 15 預表基督與新心的恩許 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide15.png" alt=""></div>
-  <div class="text dense">
-    <h2><span class="zh">梅瑟預表基督——與新心的恩許<span class="time">（41–44分鐘）★</span></span><span class="en">Moses as a Figure of Christ — and the Promise of a Changed Heart<span class="time">(41–44 min) ★</span></span></h2>
-    <table>
-      <tr><th><span class="zh">梅瑟</span><span class="en">Moses</span></th><th><span class="zh">基督</span><span class="en">Jesus</span></th></tr>
-      <tr><td><span class="zh">嬰孩時蒙保全</span><span class="en">Preserved from Herod's attempt</span></td><td><span class="zh">希律屠嬰時被保全（瑪2:13-15）</span><span class="en">Preserved from Herod's attempt (Mt 2)</span></td></tr>
-      <tr><td><span class="zh">領以色列出埃及奴役</span><span class="en">Freed Israel from Egypt</span></td><td><span class="zh">解救我們脫離罪惡的奴役</span><span class="en">Frees us from slavery to sin</span></td></tr>
-      <tr><td><span class="zh">西乃山頒布法律</span><span class="en">Gave the Law at Sinai</span></td><td><span class="zh">頒布愛的新法律（瑪5–7）</span><span class="en">Gives the new law of love</span></td></tr>
-      <tr><td><span class="zh">逾越羔羊的血救了以色列</span><span class="en">The Passover lamb's blood</span></td><td><span class="zh">基督是我們的逾越羔羊（格前5:7）</span><span class="en">Christ is our Passover lamb</span></td></tr>
-      <tr><td><span class="zh">在祂家中作僕人</span><span class="en">A servant in God's house</span></td><td><span class="zh">治理天主家的兒子（希3:1-6）</span><span class="en">The Son over God's house (Heb 3)</span></td></tr>
-    </table>
-    <blockquote><span class="zh">「上主你的天主，必為你和你的後裔施行<b>心靈的割損</b>，好叫你全心、全靈、全力，愛上主你的天主，並得以生存。」（申命紀 30:6）</span><span class="en">"The LORD your God will circumcise your hearts... that you may love the LORD, your God with all your heart and all your being, in order that you may live." (Deut 30:6)</span></blockquote>
-    <ul>
-      <li><span class="zh">以色列的歷史顯示：法律雖然聖善，卻不能憑自己改變人心</span><span class="en">The Law, though holy, could not by itself transform hearts</span></li>
-      <li><span class="zh">天主應許<b>親自動工</b>——新約寫在心上（耶31:33）；洗禮中聖神賜下「新心新神」（則36:26）</span><span class="en">God promises to do the inner work — the new covenant written on hearts</span></li>
-      <li><span class="zh"><b>我們需要的不只是法律——我們需要救主。</b></span><span class="en"><b>We need more than a law — we need a Savior.</b></span></li>
-    </ul>
-  </div>
-</div></section>
-
-<!-- 16 結語 -->
-<section class="slide"><div class="content">
-  <div class="bg"><img src="moses-slide16.png" alt=""></div>
-  <div class="text">
-    <h2><span class="zh">對我們的意義——結語<span class="time">（44–45分鐘）</span></span><span class="en">What This Means for Us — Closing<span class="time">(44–45 min)</span></span></h2>
-    <ul>
-      <li><span class="zh">天主召叫<b>平凡的、不完美的人</b>——祂也能召叫你</span><span class="en">God calls ordinary, imperfect people — he can call you</span></li>
-      <li><span class="zh">天主採取主動：祂曾按名召叫梅瑟；在<b>洗禮</b>中，祂也按名召叫我們</span><span class="en">God takes the initiative — he calls each of us by name in Baptism</span></li>
-      <li><span class="zh">我們經過水，然後走曠野——在洗禮與天家之間的一生</span><span class="en">We pass through the water, then walk the wilderness — a lifetime between Baptism and heaven</span></li>
-      <li><span class="zh">在<b>彌撒</b>中，基督聚集祂的子民，進入天上的敬拜</span><span class="en">In the Mass, Christ gathers his people into heavenly worship</span></li>
-    </ul>
-    <div class="keyline"><span class="zh"><b>結束祈禱：</b>感謝天主——祂解救子民脫離奴役、居住在他們中間、伴他們走過曠野、賜他們新心、領他們進入福地。亞孟。</span><span class="en"><b>Closing Prayer:</b> Thanks be to God, who frees his people, dwells among them, walks with them, gives them new hearts, and leads them to the promised land. Amen.</span></div>
-    <div class="imgcap"><span class="zh">下一課（10月11日）：選民及其國家的興衰</span><span class="en">Next class (Oct 11): The Rise and Fall of the Chosen People and Their Nation</span></div>
-  </div>
-</div></section>
-
-<div class="nav">
-  <span class="counter" id="counter">1 / 16</span>
-  <button onclick="prev()">&#8592;</button>
-  <button onclick="next()">&#8594;</button>
-  <button onclick="toggleNotes()" title="Notes">&#128908;</button>
-  <button onclick="toggleLang()" title="Language">中/EN</button>
-</div>
-<div class="steps" id="steps"><span></span><span></span></div>
-<div class="hint"><span class="zh">&#8592; &#8594; 或滑動 · 先看圖，再按一次顯示文字 · I = 只看圖片 · L = 切換中/English</span><span class="en">&#8592; &#8594; or swipe · image first, press again for text · I = image only · L = toggle 中文/English</span></div>
-
-<div class="notes" id="notes">
-  <div class="label">&#127908; <span class="zh">講員筆記</span><span class="en">Presenter notes</span></div>
-  <div id="noteText"></div>
-</div>
-</div>
-
-<script>
-  const notesZh = [
-    "第1頁 — 從容不迫。先讓大家安靜看圖（第一步），再按 → 顯示標題。人數少時逐一稱呼名字歡迎；開課祈禱慢慢念，為整堂課定調。",
-    "第2頁 — 快（過渡頁，兩分鐘內）。一句回顧上一課、一句點出主線。可一句話連結今晨彌撒的葡萄園讀經。",
-    "第3頁 — 中等；表格可從簡。核心是主線：恩許→救贖→敬拜→旅程→更新。時間緊時每卷一句話；勿逐行念表。",
-    "第4頁 — 加以發揮（情感鋪墊）。像講故事：七十人成為民族、「不認識約瑟的新王」。核心教導慢慢講並停頓。日期一句帶過，勿展開討論。",
-    "第5頁 — 中等，帶互動。討論留1–2分鐘，一兩位回答即可；收在「天主專長揀選看似失去資格的人」。",
-    "第6頁 — 加以發揮。這是「天主採取主動」的核心，放慢。強調：四十年沉默後，天主按名召叫他；祂也按名召叫我們。",
-    "第7頁 — 快（兩分鐘）。埋下伏筆（若8:58）即翻頁。深刻的問題先致謝、留待之後。",
-    "第8頁 — 中等。勿逐一列十災。加重「逾越羔羊的血」——第15頁會回來。可口述加強：出谷是舊約救恩的模式，在基督的逾越奧蹟中成全。",
-    "第9頁 — ★保護頁（5–7分鐘）。先讓大家看西乃山的圖，再顯示文字。預先安排朗讀者，或自己慢慢讀；讀後留片刻靜默，只用一個反思問題。注意：中文經文請與堂區思高聖經核對後再印講義。",
-    "第10頁 — ★保護頁。先看約櫃圖，可問：「你看到什麼？」再顯示文字。核心教導要發揮；建築細節可略。落點：「天主教導子民如何敬拜——祂主動發起，我們回應。」",
-    "第11頁 — 中等。CCC1093 勿照念，口述大意。選一兩個對應（紅海→洗禮、瑪納→聖體）。聖母是預象的成全，需說明。圖中約櫃只是示意舊約敬拜。",
-    "第12頁 — 可略。若落後：一句話——「以色列跌倒，梅瑟代求，天主寬恕；這代禱指向基督。」",
-    "第13頁 — 發揮「對應」：瑪4:4、若3:14 是驚喜點——「這不是巧合，這是同一個故事」。地圖一筆帶過。落點：曠野是基督徒生活的寫照。",
-    "第14頁 — 可略（一分鐘）。「梅瑟遠望福地而死——故事刻意未完。下週：梅瑟之後的以色列。」",
-    "第15頁 — ★保護頁（高峰）。表格可只挑一兩列（逾越羔羊、希3僕人vs兒子）。申30:6 親自慢慢讀；可口連結今晨領聖體後經（「領受而轉變」）。落點：「我們需要的不只是法律——我們需要救主。」勿趕。",
-    "第16頁 — 從容。時間不足可跳過要點，直接結束祈禱。祈禱是最後的記憶，慢慢念。"
-  ];
-  const notesEn = [
-    "1 — Unhurried. Let them take in the image (step 1) before revealing the title. Welcome by name; pray slowly.",
-    "2 — QUICK bridge, 2 min. One line to today's Mass (the vineyard).",
-    "3 — MODERATE; table optional. The arrow chain is the takeaway.",
-    "4 — ELABORATE (emotional setup). Tell it as a story; land the key teaching with a pause. One sentence on dates.",
-    "5 — MODERATE with interaction. 1–2 min of discussion; 'God specializes in the disqualified.'",
-    "6 — ELABORATE. Heart of 'God takes the initiative' — slow down. Called by name after 40 silent years.",
-    "7 — QUICK (2 min). Plant Jn 8:58 and move on.",
-    "8 — MODERATE. Don't list all ten plagues. Weight the Passover lamb (returns on slide 15). Orally: the Exodus is the OT pattern of salvation, fulfilled in the Paschal Mystery.",
-    "9 — ★PROTECTED (5–7 min). Show the Sinai image first — 'What do you see?' — then reveal text. Arrange a reader; silence after reading; ONE reflection question. Verify the Chinese text against your parish Bible.",
-    "10 — ★PROTECTED. Show the Ark image first and invite observation before revealing text. Elaborate the key teaching; architecture optional. Land: 'God initiates worship; we respond.'",
-    "11 — MODERATE. Paraphrase CCC 1093. One or two correspondences. Mary is typological fulfillment. The Ark in the image illustrates Old Covenant worship only.",
-    "12 — OPTIONAL. If behind: 'Israel fell — Moses interceded — God forgave. That points to Christ.'",
-    "13 — ELABORATE the correspondences (Mt 4:4, Jn 3:14) — 'not coincidences; one story.' One gesture over the map. Land the key teaching.",
-    "14 — OPTIONAL (1 min). 'Moses dies outside the land — the story is deliberately unfinished. Next week.'",
-    "15 — ★PROTECTED (the peak). Table optional — pick two rows. Read Deut 30:6 yourself, slowly. Connect to this morning's Prayer after Communion. Land: 'We need a Savior.' Do not rush.",
-    "16 — Unhurried. Skip takeaways if late; pray the closing prayer slowly — it is the last thing they remember."
-  ];
-  let cur = 0;
-  let revealed = false;
-  const deck = document.getElementById('deck');
-  const slides = document.querySelectorAll('.slide');
-  function updateNotes() {
-    const isZh = document.body.classList.contains('lang-zh');
-    document.getElementById('noteText').textContent = isZh ? notesZh[cur] : notesEn[cur];
-  }
-  function show() {
-    slides.forEach((s, i) => {
-      s.classList.toggle('active', i === cur);
-      s.classList.toggle('revealed', i === cur && revealed);
-    });
-    document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
-    document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
-    const dots = document.querySelectorAll('#steps span');
-    dots[0].classList.toggle('on', true);
-    dots[1].classList.toggle('on', revealed);
-    updateNotes();
-  }
-  function next() {
-    if (!revealed) { revealed = true; }
-    else if (cur < slides.length - 1) { cur++; revealed = false; }
-    show();
-  }
-  function prev() {
-    if (revealed) { revealed = false; }
-    else if (cur > 0) { cur--; revealed = true; }
-    show();
-  }
-  function toggleNotes() { document.getElementById('notes').classList.toggle('on'); }
-  function toggleLang() {
-    document.body.classList.toggle('lang-zh');
-    document.body.classList.toggle('lang-en');
-    updateNotes();
-  }
-
-  // Keyboard (desktop)
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
-    if (e.key === 'ArrowLeft') prev();
-    const k = e.key.toLowerCase();
-    if (k === 'n') toggleNotes();
-    if (k === 'i') deck.classList.toggle('image-mode');
-    if (k === 'l') toggleLang();
-  });
-
-  // Swipe gestures (mobile)
-  let tX = null, tY = null, swiped = false;
-  document.addEventListener('touchstart', e => {
-    tX = e.touches[0].clientX; tY = e.touches[0].clientY; swiped = false;
-  }, { passive: true });
-  document.addEventListener('touchend', e => {
-    if (tX === null) return;
-    const dx = e.changedTouches[0].clientX - tX;
-    const dy = e.changedTouches[0].clientY - tY;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      swiped = true;
-      if (dx < 0) next(); else prev();
-    }
-    tX = null; tY = null;
-  }, { passive: true });
-
-  // Tap zones (mobile): left edge = back, right edge = forward, middle = safe
-  document.addEventListener('click', e => {
-    if (swiped) { swiped = false; return; }
-    if (e.target.closest('a, button, .notes')) return;
-    const w = window.innerWidth;
-    if (e.clientX > w * 0.78) next();
-    else if (e.clientX < w * 0.22) prev();
-  });
-
-  // Fallback for slide 1 background filename
-  (function(){ const t = new Image(); t.onerror = function(){ document.querySelector('.hero').style.backgroundImage = "url('moses-slide1.png')"; }; t.src = 'moses-slide1-red-sea.png'; })();
-  show();
-</script>
 </body>
 </html>
