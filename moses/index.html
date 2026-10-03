@@ -9,6 +9,8 @@
   html, body { height: 100%; }
   :root { --fs: 1; }
   body { background: #0d1020; font-family: 'Songti TC', 'PMingLiU', 'Noto Serif TC', Georgia, serif; color: #f3efe4; overflow: hidden; overscroll-behavior: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; font-weight: 700; }
+  /* Copyable text: slide body, side panel, presenter notes */
+  .content .text, .side, .notes { -webkit-user-select: text; user-select: text; }
   body.lang-en { font-family: Georgia, 'Times New Roman', serif; }
 
   /* Language toggle */
@@ -17,6 +19,7 @@
 
   /* Text zoom: scales slide text, hero title, and notes */
   .content .text, .hero .overlay, .notes { zoom: var(--fs); }
+  .side-inner { zoom: var(--fs); }
 
   .deck { position: relative; width: 100vw; height: 100vh; }
   .slide { position: absolute; inset: 0; display: none; }
@@ -26,6 +29,8 @@
   .content .text, .content .bg::after, .overlay { opacity: 0; transition: opacity 0.55s ease; }
   .slide.revealed .content .text, .slide.revealed .content .bg::after, .slide.revealed .overlay { opacity: 1; }
   .deck.image-mode .content .text, .deck.image-mode .content .bg::after, .deck.image-mode .overlay { opacity: 0 !important; }
+  .deck.image-mode .side { display: none !important; }
+  .deck:not(.step-revealed) .side { display: none !important; }
 
   /* Slide 1 */
   .hero { background-size: cover; background-position: center; }
@@ -93,6 +98,23 @@
   .notes-close:hover { background: rgba(201,168,76,0.35); }
   .hint { position: fixed; bottom: 2.2vh; left: 2.5vw; color: #8a93ac; font-size: 0.85vw; z-index: 10; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
+  /* Scripture / CCC side panel (optional, per slide) */
+  .side { position: fixed; top: 0; right: 0; bottom: 0; width: 34vw; max-width: 560px; background: rgba(5,7,18,0.94); border-left: 2px solid #c9a84c; color: #e9e4d6; font-size: 1.02vw; line-height: 1.85; font-weight: 400; padding: 3.2vh 2vw 8vh 2vw; display: none; overflow-y: auto; z-index: 20; }
+  .side.on { display: block; }
+  .side .slabel { color: #c9a84c; letter-spacing: 0.15em; font-size: 0.85vw; margin-bottom: 1vh; }
+  .side .scite { color: #f7e8c3; font-size: 1.15vw; margin-bottom: 1.4vh; }
+  .side p { margin-bottom: 1.3vh; }
+  .side .vend { color: #c9a84c; font-style: italic; }
+  .side .sref { color: #c9a84c; font-size: 0.88vw; margin: 1.8vh 0 0.6vh 0; }
+  .side .sref a { color: inherit; border-bottom-color: rgba(201,168,76,0.45); }
+  .side a { color: #d9b95e; text-decoration: none; border-bottom: 1px dotted #d9b95e; }
+  .side a:hover { color: #f7e8c3; }
+  .side::-webkit-scrollbar { width: 8px; }
+  .side::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 4px; }
+  .side-grip { position: absolute; left: -6px; top: 0; bottom: 0; width: 12px; cursor: col-resize; touch-action: none; z-index: 25; }
+  .side-grip::before { content: ''; position: absolute; left: 5px; top: 0; bottom: 0; width: 2px; background: rgba(201,168,76,0.45); }
+  .side-grip:hover::before { background: rgba(201,168,76,0.9); }
+
   /* ============ MOBILE ============ */
   @media (max-width: 900px), (max-height: 500px) {
     .content .text { width: 80%; padding: 2.5vh 4vw 2.5vh 6vw; }
@@ -128,6 +150,10 @@
     .notes { font-size: 3vw; padding: 2vh 30vw 3vh 5vw; }
     .notes .label { font-size: 2.4vw; }
     .notes-close { font-size: 3.2vw; padding: 0.8vh 2.5vw; top: 1.5vh; }
+    .side { width: 100vw; font-size: 3.2vw; line-height: 1.9; padding: 2vh 5vw 6vh 5vw; }
+    .side .slabel { font-size: 2.4vw; }
+    .side .scite { font-size: 3.6vw; }
+    .side .sref { font-size: 2.5vw; }
     .progress { height: 0.8vh; }
   }
 </style>
@@ -470,12 +496,22 @@
   <span class="zoomLevel" id="zoomLevel">100%</span>
   <button class="zoomBtn" onclick="zoomText(0.1)" title="文字放大 / larger text">A+</button>
   <button id="soundBtn" onclick="toggleSound()" title="影片聲音 / video sound">&#128263;</button>
+  <button id="panelBtn" onclick="toggleSide()" title="聖經/教理 / Scripture">&#128214;</button>
   <button onclick="toggleNotes()" title="Notes">&#127908;</button>
   <button onclick="toggleLang()" title="Language">中/EN</button>
 </div>
 <div class="steps" id="steps"><span></span><span></span></div>
-<div class="hint"><span class="zh">&#8592; &#8594; 或滑動 · 先看圖，再按一次顯示文字 · I = 只看圖片 · L = 中/EN · +/&#8722; = 文字大小 · 0 = 復原 · M = 影片聲音</span><span class="en">&#8592; &#8594; or swipe · image first, press again for text · I = image only · L = 中文/English · +/&#8722; = text size · 0 = reset · M = video sound</span></div>
+<div class="hint"><span class="zh">&#8592; &#8594; 或滑動 · 先看圖，再按一次顯示文字 · I = 只看圖片 · L = 中/EN · +/&#8722; = 文字大小 · 0 = 復原 · M = 影片聲音 · B = 聖經/教理</span><span class="en">&#8592; &#8594; or swipe · image first, press again for text · I = image only · L = 中文/English · +/&#8722; = text size · 0 = reset · M = video sound · B = scripture</span></div>
 
+<div class="side" id="side">
+  <div class="side-grip" id="sideGrip" title="拖曳調整寬度 / drag to resize"></div>
+  <button class="notes-close" onclick="toggleSide()">&#10005; 關閉 / Close</button>
+  <div class="side-inner">
+    <div class="slabel" id="sideLbl"></div>
+    <div class="scite" id="sideCite"></div>
+    <div id="sideText"></div>
+  </div>
+</div>
 <div class="notes" id="notes">
   <button class="notes-close" onclick="toggleNotes()">&#10005; 關閉 / Close</button>
   <div class="label">&#127908; <span class="zh">講員筆記</span><span class="en">Presenter notes</span></div>
@@ -530,6 +566,252 @@
     "20 — ★PROTECTED (the peak). Two table rows max. Read Deut 30:6 yourself, slowly. Land: 'We need a Savior.'",
     "21 — Unhurried. Pray the closing prayer slowly — the last thing they remember."
   ];
+
+  // Right-side scripture/CCC panel — keyed by slide index (0-based); slides without an entry hide the panel.
+  const panelsZh = {
+    1: {
+      label: "今晨彌撒讀經一",
+      cite: "依撒意亞先知書 5:1-7（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Isaiah_bible_Ch_5_.html",
+      text: `<p>我要為我的愛友，謳唱一首有關他葡萄園的情歌：我的愛友，有一座葡萄園，位於肥沃的山崗上；他翻掘了土地，除去了石塊，栽種了精選的葡萄樹，園中築了一座守望台，又鑿了一個榨酒池。他原希望葡萄園出產好葡萄，但它卻出產了野葡萄。</p><p>耶路撒冷的居民和猶大人啊！現在請你們，在我與我葡萄園之間，判別是非：我為我的葡萄園所能做的，還有什麼沒有做到？我原希望它出產好葡萄，為什麼卻出產了野葡萄？</p><p>現在，我要告訴你們，我將怎樣對待我的葡萄園：我必撤去它的籬笆，讓它被吞噬；拆毀它的圍牆，讓它受踐踏；我要使它變成荒地，不再修剪，不再耕鋤；荊棘和蒺藜，將叢叢而生；並且我要命令雲彩，不再給它降下時雨。</p><p>萬軍上主的葡萄園，就是以色列家，而猶大人，即是他鍾愛的幼苗。上主原希望正義，看，竟是流血；上主原希望公平，看，卻是冤聲！</p><p class="vend">——上主的話。</p>`
+    },
+    2: {
+      label: "聖經原文",
+      cite: "創世紀 12:1-3（思高本）——天主的恩許",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Genesis_bible_Ch_12_.html",
+      text: `<p>上主對亞巴郎說：「離開你的故鄉、你的家族和父家，往我指給你的地方去。</p><p>我要使你成為一個大民族，我必祝福你，使你成名，成為一個福源。</p><p>我要祝福那祝福你的人，咒罵那咒罵你的人；地上萬民都要因你獲得祝福。」</p>`
+    },
+    3: {
+      label: "聖經原文",
+      cite: "創世紀 15:12-14（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Genesis_bible_Ch_15_.html",
+      text: `<p>太陽快要西落時，亞巴郎昏沉地睡去，忽覺陰森萬分，遂害怕起來。</p><p>上主對亞巴郎說：「你當知道，你的後裔必要寄居在異邦，受人奴役虐待四百年之久。</p><p>但是，我要親自懲罰他們所要服事的民族；如此你的後裔必要帶著豐富的財物由那裏出來。</p>`
+    },
+    4: {
+      label: "聖經原文",
+      cite: "出谷紀 2:1-10 · 2:16-22 · 宗徒大事錄 7:29-30（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_2_.html",
+      text: `<p>有一個肋未人娶了一個肋未支派的女人為妻。這女人懷孕生了一個兒子，見他俊美，就把他隱藏了三個月。以後不能再隱藏了，就拿了一個蒲草筐子，塗上瀝青和石漆，把那孩子放在裏面，將筐放在尼羅河邊的蘆葦叢中。孩子的姐姐遠遠地站著，想知道孩子究竟怎樣。</p><p>法郎的一個公主下到尼羅河邊洗澡……她看見蘆葦叢中那個筐子……打開一看，見有一個孩子正在哭啼，就憐憫他說：「必是一個希伯來人的孩子。」……孩子的姐姐對法郎公主說：「我去從希伯來婦女中給你請一個奶媽，為你哺育這個孩子，好嗎？」……</p><p>孩子長大了，她就把他帶到公主那裏；公主遂收他作自己的兒子，給他起名叫梅瑟，說：「因為我從水裏拉出了他。」</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_2_.html" target="_blank">出谷紀 2:16-22</a></p><p>米德楊的司祭有七個女兒，她們來到水邊，打滿了水槽，要飲父親的羊群。……梅瑟起來保護了她們，也飲了她們的羊。她們回到勒烏耳（即耶特洛）那裏……他說：「那人在哪裏？你們為什麼撇下他？去請他來吃飯！」梅瑟甘願替那人作女婿……她生了一個兒子，梅瑟給他起名叫革爾熊，說：「我在外方成了旅客。」</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Acts_bible_Ch_7_.html" target="_blank">宗徒大事錄 7:29-30</a></p><p>梅瑟因這句話就逃走了，在米德楊地方作外鄉人，生了兩個兒子。過了四十年，在西乃曠野的地方，天使在荊棘叢的火焰中顯現給他。</p>`
+    },
+    5: {
+      label: "聖經原文",
+      cite: "出谷紀 3:1-10（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_3_.html",
+      text: `<p>那時梅瑟為他的岳父米德楊的司祭耶特洛放羊；一次他趕羊往曠野裏去，到了天主的山曷勒布。上主的使者從荊棘叢的火焰中顯現給他；他觀望，看見荊棘在火中焚燒，而荊棘卻沒有燒毀。梅瑟心裏說：「我要到那邊看看這個奇異的現象，為什麼荊棘燒不毀？」</p><p>上主見他走過來觀看，天主便由荊棘叢中叫他說：「梅瑟！梅瑟！」他說：「我在這裏。」天主說：「不可到此為止！快脫下你腳上的鞋，因為你所站的地方是聖地。」又說：「我是你父親的天主，亞巴郎的天主，依撒格的天主，雅各伯的天主。」梅瑟因為怕看見天主，就把自己的臉遮起來。</p><p>上主說：「我看見我的百姓在埃及所受的痛苦，聽見他們因監工的壓迫而發出的哀號；我已注意到他們的痛苦。所以我下來要拯救他們脫離埃及人的手，領他們離開那地方，到一個美麗寬闊、流奶流蜜的地方。……所以你來，我要派遣你到法郎那裏，率領我的百姓以色列出離埃及。」</p>`
+    },
+    6: {
+      label: "聖經原文",
+      cite: "出谷紀 3:13-15（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_3_.html",
+      text: `<p>梅瑟對天主說：「當我到以色列子民那裏，向他們說：你們祖先的天主打發我到你們這裏來時，他們必要問我：他叫什麼名字？我要回答他們什麼呢？」</p><p>天主向梅瑟說：「我是自有者。」又說：「你要這樣對以色列子民說：那『自有者』打發我到你們這裏來。」</p><p>天主又對梅瑟說：「你要這樣對以色列子民說：上主，你們祖先的天主，亞巴郎的天主，依撒格的天主和雅各伯的天主，打發我到你們這裏來，這是我的名字，直到永遠；這是我的稱號，直到萬世。」</p>`
+    },
+    7: {
+      label: "聖經原文",
+      cite: "出谷紀 7:1-5（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_7_.html",
+      text: `<p>上主對梅瑟說：「看，我使你在法郎前像一位神明，你的哥哥亞郎要替你說話。……當我在埃及地顯示種種奇蹟時，法郎必不肯聽從你們。</p><p>因此我要伸手嚴厲懲罰埃及，領我的軍隊以色列子民出離埃及。當我伸手懲罰埃及，將以色列子民從他們中間領出來時，埃及人將知道我是上主。」</p>`
+    },
+    8: {
+      label: "聖經原文",
+      cite: "出谷紀 12:1-14（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_12_.html",
+      text: `<p>上主在埃及國訓示梅瑟和亞郎說：「你們要以本月為你們的正月，算是一年的首月。你們應訓示以色列會眾：本月十日，他們每人照戶口取名，領取一隻羔羊，一家一隻。……應是無殘疾的公羊羔，一歲的。……</p><p>你們應取些血塗在吃羔羊的房屋的兩門框和門楣上。在那一天晚上要吃肉……只許吃火烤的。……你們應這樣吃：束著腰，腳上穿著鞋，手裏拿著棍杖，急速快吃：這是往上主的逾越節。</p><p>這一夜我要走遍埃及國，將埃及國一切頭胎生的，無論是人或是牲畜都要殺死……這血在你們所住的房屋上，作你們的記號：我打擊埃及國時，一見這血，就越過你們，災禍必不落在你們身上，摧毀你們。</p><p>這一天將是你們的紀念日，要當作上主的節日來慶祝；你們要世世代代過這節日，作為永遠的法規。」</p>`
+    },
+    9: {
+      label: "聖經原文",
+      cite: "出谷紀 13:17-22（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_13_.html",
+      text: `<p>法郎放走百姓以後，天主沒有領他們走培肋舍特地的近路，因為天主想：怕百姓遇見戰爭而後悔，再回到埃及。因此天主領百姓繞道，由靠紅海的曠野路上前行。以色列子民都武裝著離開了埃及。</p><p>上主在他們前面走：白天在雲柱裏給他們領路，夜間在火柱裏光照他們，好叫他們日夜都能趕路。</p><p>白天的雲柱，夜間的火柱，總不離開百姓面前。</p>`
+    },
+    10: {
+      label: "聖經原文",
+      cite: "出谷紀 14:13-14, 21-31（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_14_.html",
+      text: `<p>梅瑟對百姓說：「你們不要害怕；站著等待看上主今天給你們施的救恩，因為你們今天所見的埃及人，以後永遠不再見到了。上主必替你們作戰，你們應安靜等待。」</p><p>梅瑟向海伸手，上主就用極強的東風，一夜之間把海水刮退，使海底成為乾地。水分開以後，以色列子民便在海中乾地上走過，水在他們左右好像牆壁。……</p><p>到了天亮的時候，上主從火柱和雲柱上，俯視埃及軍隊……梅瑟就向海伸手，天一亮海水就復回原狀，埃及人逃跑時，海水迎面衝來，將他們全部淹沒在海中。……</p><p>那一天，上主從埃及人手中拯救了以色列人。以色列人見了上主向埃及人所作的大能，都敬畏上主，信了上主和他的僕人梅瑟。</p>`
+    },
+    11: {
+      label: "聖經原文",
+      cite: "出谷紀 19:3-6 · 20:1-17（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_19_.html",
+      text: `<p>梅瑟上到天主那裏時，上主從山上召喚他說：「你要這樣對雅各伯家訓言，告訴以色列子民說：</p><p>你們親自見了我對埃及所作的事，怎樣好像老鷹一樣將你們背在翅膀上，將你們帶來歸屬於我。</p><p>現在你們若真聽我的話，遵守我的盟約，你們在萬民中將成為我的特殊產業。的確，普世全屬於我，但你們為我應成為司祭的王國，聖潔的國民。這些話你要告訴以色列子民。」</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_20_.html" target="_blank">出谷紀 20:1-17</a></p><p>天主訓示以下這一切話說：「我是上主你的天主，是我領你出了埃及地、奴隸之所。</p><p>除我之外，你不可有別的神。不可為你製造任何彷彿天上或地上，或地下水中之物的雕像。不可叩拜這些像，也不可敬奉……</p><p>不可妄呼上主你天主的名……</p><p>應記念安息日，守為聖日。六天應該勞作，做你一切的事；但第七天是為恭敬上主你的天主當守的安息日……</p><p>應孝敬你的父親和你的母親，好使你在上主你的天主賜給你的地方，延年益壽。</p><p>不可殺人。不可姦淫。不可偷盜。不可作假見證害你的近人。不可貪你近人的房舍。不可貪戀你近人的妻子、僕人、婢女、牛驢及你近人的一切。」</p>`
+    },
+    12: {
+      label: "聖經原文",
+      cite: "出谷紀 24:3-11（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_24_.html",
+      text: `<p>梅瑟下來將上主的一切話和誡命講述給百姓聽，全體百姓都同聲回答說：「凡上主所吩咐的話，我們全要奉行。」梅瑟遂將上主的一切話記錄下來。第二天一早，梅瑟在山腳下築了一座祭壇，並按以色列十二支派立了十二根石柱，……獻了全燔祭與和平祭。</p><p>梅瑟取了一半的血盛在盆中，另一半血灑在祭壇上；然後拿過約書來，念給百姓聽。百姓回答說：「凡上主吩咐的話，我們必謹守奉行。」梅瑟遂拿血來灑在百姓身上說：「看，這是盟約的血，是上主本著這一切話同你們立的約。」</p><p>隨後，梅瑟和亞郎、納達布、阿彼胡和以色列長老中的七十人上了山。他們看見了以色列的天主，在祂腳下好像有一層藍寶石作的鋪道，像晴朗的天空那麼明淨。他們這些以色列的貴族雖然看見了天主，竟還吃了喝了。</p>`
+    },
+    13: {
+      label: "聖經原文",
+      cite: "出谷紀 25:8-22（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_25_.html",
+      text: `<p>「他們應為我建造一座聖所，好讓我住在他們中間。你現在要依照我在山上指示給你的式樣，製造帳棚和其中的一切器具。」</p><p>「要用皂莢木做一個櫃，櫃內要放約版……要用純金做櫃的內外，上端四周鑲上金花邊。……要做兩個金質的革魯賓，……放在贖罪蓋的兩端。」</p><p>「我要在那裏與你會晤，從贖罪蓋上，從約櫃上的兩個革魯賓中間，將我命令以色列子民的一切事，告訴給你。」</p>`
+    },
+    14: {
+      label: "聖經原文",
+      cite: "格林多前書 10:1-4 · 若望福音 6:48-51（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/1_Corinthians_bible_Ch_10_.html",
+      text: `<p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/1_Corinthians_bible_Ch_10_.html" target="_blank">格林多前書 10:1-4</a></p><p>弟兄們，我願意告訴你們：我們的祖先都曾在雲下，都從海中走過，都曾在雲中和海中受了洗而歸於梅瑟，都吃過同樣的神糧，都喝過同樣的神飲；原來他們所喝的，是伴隨他們的那神磐石：那磐石就是基督。</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/John_bible_Ch_6_.html" target="_blank">若望福音 6:48-51</a></p><p>「我就是生命的食糧。你們的祖先在曠野中吃過『瑪納』，卻死了。這是從天上降下的食糧，誰吃了，就不死。我是從天上降下的生活的食糧；誰若吃了這食糧，必要生活直到永遠。我所要賜給的食糧，就是我的肉，是為世界的生命而賜給的。」</p>`
+    },
+    15: {
+      label: "聖經原文",
+      cite: "出谷紀 32:1-6 · 32:11-14（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_32_.html",
+      text: `<p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_32_.html" target="_blank">出谷紀 32:1-6</a></p><p>百姓見梅瑟遲遲沒有下山，就聚集到亞郎跟前，對他說：「起來，給我們製造一尊神像，在我們前面引路，因為那領我們出埃及國的梅瑟，不知道遭遇了什麼事。」亞郎對他們說：「把你們的妻子兒女佩戴的金耳環摘下，給我送來。」眾百姓就摘下他們耳上的金環，送到亞郎跟前。亞郎從他們手裏接過來，用雕刻的工具鑄造了一個牛像……他們遂說：「以色列，這就是領你出埃及國的天主。」亞郎見了，就在牛犢前築了一座祭壇……次日清晨，他們起來奉獻了全燔祭與和平祭；以後百姓坐下來吃喝，起來玩樂。</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_32_.html" target="_blank">出谷紀 32:11-14</a></p><p>梅瑟求上主他的天主說：「上主，你為什麼要向你的百姓發怒呢？是你用大能的手，從埃及地領出來的。為什麼要讓埃及人說：這是惡意領他們出來，要在山中殺死他們，由地面上消滅他們呢？求你息怒，撤回要加於你百姓的災禍。</p><p>求你記念你的僕人亞巴郎、依撒格和以色列，你曾指著自己向他們起誓說：我要使你們的後裔繁多，如天上的星辰；他們要佔領這地方，賜給你們的後裔，作為永久產業。」</p><p>上主於是撤銷了要加於百姓的災禍。</p>`
+    },
+    16: {
+      label: "聖經原文",
+      cite: "出谷紀 16:13-21 · 17:5-7（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_16_.html",
+      text: `<p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_16_.html" target="_blank">出谷紀 16:13-21</a></p><p>到了晚上，有鵪鶉飛來，蓋滿了營幕；到了早晨，營幕四周落了一層露水。露水昇華之後，看，曠野的地面上留下稀薄的碎屑，細薄得好像霜。以色列子民一見，就彼此問說：「這是什麼？」原來他們不知道這是什麼。梅瑟告訴他們說：「這就是上主賜給你們吃的食物。」</p><p>上主曾吩咐：「每人按食量收取……」以色列子民就照樣作了……梅瑟對他們說：「誰也不要把一些留到早晨。」但他們沒有聽梅瑟的話，有人把一些留到早晨，就生蟲發臭……</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Exodus_bible_Ch_17_.html" target="_blank">出谷紀 17:5-7</a></p><p>上主對梅瑟說：「你到百姓前面，拿著你擊尼羅河的石杖，帶著幾位以色列長老，去吧！看，我要在你面前，站在曷勒布那塊磐石上；你擊打那磐石，就有水流出來，給百姓喝。」梅瑟就在長老眼前照樣作了。他稱那地方為瑪撒和瑪黎巴，因為以色列子民在那裏爭吵過，並試探了上主說：「上主是否在我們中間？」</p>`
+    },
+    17: {
+      label: "聖經原文",
+      cite: "申命紀 8:2-4 · 戶籍紀 21:8-9（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_8_.html",
+      text: `<p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_8_.html" target="_blank">申命紀 8:2-4</a></p><p>你當記念上主你的天主在這四十年內，領你走過曠野的路，為磨煉你、試探你，願知道你的心懷，是否願遵守他的誡命。他磨煉了你，使你感到饑餓，卻以你和你祖先所不認識的「瑪納」養育了你，使你知道人生活不但靠食物，而且也靠上主口中所發的一切話生活。這四十年來，你身上的衣服沒有穿破，你的腳也沒有腫。</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Numbers_bible_Ch_21_.html" target="_blank">戶籍紀 21:8-9</a></p><p>上主對梅瑟說：「你做一條火蛇，懸在木竿上；那被咬的，一瞻仰牠，必得生存。」梅瑟遂做了一條銅蛇，懸在木竿上；人被蛇咬了，一瞻仰銅蛇，就保存了生命。</p>`
+    },
+    18: {
+      label: "聖經原文",
+      cite: "申命紀 34:1-6, 10-12（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_34_.html",
+      text: `<p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_34_.html" target="_blank">申命紀 34:1-6</a></p><p>梅瑟從摩阿布曠野上了乃波山，上到了耶里哥對面的丕斯加峰。上主將全地指給他看……上主對他說：「這就是我對亞巴郎、依撒格和雅各伯誓許說要給你後裔的地方。我使你親眼看見了，但你不能過去。」上主的僕人梅瑟遵照上主的指示，死在摩阿布地方。上主將他埋葬在摩阿布地方，貝特培摩爾對面的山谷中；直到今日沒有人知道埋葬他的地方。</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_34_.html" target="_blank">申命紀 34:10-12</a></p><p>從此，以色列再沒有興起一位像梅瑟一樣的先知，是上主面對面所認識的。他奉上主之命，向埃及行的種種神蹟和異兆，以及在以色列全地向他們所行的各種威力，誰也不能與他相比。</p>`
+    },
+    19: {
+      label: "聖經原文",
+      cite: "申命紀 30:6 · 厄則克耳 36:26-27（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_30_.html",
+      text: `<p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Deuteronomy_bible_Ch_30_.html" target="_blank">申命紀 30:6</a></p><p>上主你的天主必在你和你的後裔的心裏施行心靈的割損，好使你全心、全靈、全力愛上主你的天主，使你得以生存。</p><p class="sref"><a href="https://www.ccreadbible.org/chinesebible/sigao/Ezekiel_bible_Ch_36_.html" target="_blank">厄則克耳 36:26-27</a></p><p>我還要賜給你們一顆新心，在你們五內放上一種新的精神，從你們身上取去鐵石的心，給你們換上一顆血肉的心。我要將我的神賜於你們五內，使你們遵行我的規律，恪守我的誡命，且一一實行。</p>`
+    },
+    20: {
+      label: "聖經原文",
+      cite: "羅馬書 6:3-4（思高本）",
+      src: "https://www.ccreadbible.org/chinesebible/sigao/Romans_bible_Ch_6_.html",
+      text: `<p>難道你們不知道：我們受洗歸於基督耶穌的人，就是受洗歸於他的死亡嗎？我們藉著洗禮已歸於死亡與祂同葬了，為的是基督怎樣藉著父的光榮，從死者中復活了，我們也怎樣在新生活中度生。</p>`
+    }
+  };
+  const panelsEn = {
+    1: {
+      label: "First Reading at this morning's Mass",
+      cite: "Isaiah 5:1-7 (NABRE)",
+      src: "https://bible.usccb.org/bible/isaiah/5",
+      text: `<p>Now let me sing of my friend, my beloved's song about his vineyard. My friend had a vineyard on a fertile hillside; he spaded it, cleared it of stones, and planted the choicest vines; within it he built a watchtower, and hewed out a wine press. Then he waited for the crop of grapes, but it yielded rotten grapes.</p><p>Now, inhabitants of Jerusalem, people of Judah, judge between me and my vineyard: What more could be done for my vineyard that I did not do? Why, when I waited for the crop of grapes, did it yield rotten grapes?</p><p>Now, I will let you know what I am going to do to my vineyard: Take away its hedge, give it to grazing, break through its wall, let it be trampled! Yes, I will make it a ruin: it shall not be pruned or hoed, but will be overgrown with thorns and briers; I will command the clouds not to rain upon it.</p><p>The vineyard of the LORD of hosts is the house of Israel, the people of Judah, his cherished plant; he waited for judgment, but see, bloodshed! for justice, but hark, the outcry!</p><p class="vend">—The word of the Lord.</p>`
+    },
+    2: {
+      label: "Scripture",
+      cite: "Genesis 12:1-3 (NABRE) — God's promise",
+      src: "https://bible.usccb.org/bible/genesis/12",
+      text: `<p>The LORD said to Abram: Go forth from your land, your relatives, and from your father's house to a land that I will show you.</p><p>I will make of you a great nation, and I will bless you; I will make your name great, so that you will be a blessing.</p><p>I will bless those who bless you and curse those who curse you. All the families of the earth will find blessing in you.</p>`
+    },
+    3: {
+      label: "Scripture",
+      cite: "Genesis 15:12-14 (NABRE)",
+      src: "https://bible.usccb.org/bible/genesis/15",
+      text: `<p>As the sun was about to set, a deep sleep fell upon Abram, and a great, dark dread descended upon him.</p><p>Then the LORD said to Abram: Know for certain that your descendants will reside as aliens in a land not their own, where they shall be enslaved and oppressed for four hundred years.</p><p>But I will bring judgment on the nation they must serve, and after this they will go out with great wealth.</p>`
+    },
+    4: {
+      label: "Scripture",
+      cite: "Exodus 2:1-10 · 2:16-22 · Acts 7:29-30 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/2",
+      text: `<p>A man of the house of Levi married a Levite woman. The woman conceived and bore a son, and seeing that he was a fine child, she hid him for three months. When she could hide him no longer, she took a papyrus basket, daubed it with bitumen and pitch, and putting the child in it, placed it among the reeds on the bank of the Nile. His sister stationed herself at a distance to find out what would happen to him.</p><p>Then Pharaoh's daughter came down to bathe at the Nile... She saw the basket among the reeds... opened it, and there was a baby boy crying! She was moved with pity for him and said, "It must be one of the Hebrews' children."... Then his sister asked Pharaoh's daughter, "Shall I go and call a Hebrew woman to nurse the child for you?"...</p><p>When the child grew, she brought him to Pharaoh's daughter, and he became her son. She named him Moses; for she said, "I drew him out of the water."</p><p class="sref"><a href="https://bible.usccb.org/bible/exodus/2" target="_blank">Exodus 2:16-22</a></p><p>Now the priest of Midian had seven daughters. They came to draw water and fill the troughs to water their father's flock.... But Moses came to their defense and watered their flock.... He said, "Where is the man? Why did you leave him? Invite him to have something to eat." Moses agreed to stay with him, and the man gave Moses his daughter Zipporah in marriage. She conceived and bore a son, whom he named Gershom, meaning: I am a stranger in a foreign land.</p><p class="sref"><a href="https://bible.usccb.org/bible/acts/7" target="_blank">Acts 7:29-30</a></p><p>At that statement, he fled to the land of Midian, where he settled as a foreigner and had two sons. Forty years later, an angel appeared to him in the desert of Mount Sinai, in the flame of a burning bush.</p>`
+    },
+    5: {
+      label: "Scripture",
+      cite: "Exodus 3:1-10 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/3",
+      text: `<p>Moses was tending the flock of his father-in-law Jethro, the priest of Midian. Leading the flock across the wilderness, he came to Horeb, the mountain of God. There the angel of the LORD appeared to him as fire flaming out of a bush. When he looked, although the bush was on fire, it was not consumed. So Moses thought, "I will go over to look at this remarkable sight. Why does the bush not burn up?"</p><p>When the LORD saw that he had turned over to look, God called out to him from the bush: Moses! Moses! He answered, "Here I am." God said: Do not come near! Remove your sandals from your feet, for the place where you stand is holy ground. I am the God of your father, the God of Abraham, the God of Isaac, and the God of Jacob. So Moses covered his face, for he was afraid to look at God.</p><p>But the LORD said: I have witnessed the affliction of my people in Egypt and have heard their cry against their taskmasters, so I know well what they are suffering. Therefore I have come down to rescue them from the power of the Egyptians and to bring them up from that land to a land flowing with milk and honey.... Now, go! I will send you to Pharaoh to bring my people, the Israelites, out of Egypt.</p>`
+    },
+    6: {
+      label: "Scripture",
+      cite: "Exodus 3:13-15 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/3",
+      text: `<p>"But," said Moses to God, "if I go to the Israelites and say to them, The God of your fathers has sent me to you, and they ask me, What is his name? what am I to tell them?"</p><p>God replied, I am who am. Then he added, This is what you shall tell the Israelites: I AM sent me to you.</p><p>God spoke further to Moses: This is what you will say to the Israelites: The LORD, the God of your fathers, the God of Abraham, the God of Isaac, and the God of Jacob, has sent me to you. This is my name for all ages; this is my title for all generations.</p>`
+    },
+    7: {
+      label: "Scripture",
+      cite: "Exodus 7:1-5 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/7",
+      text: `<p>The LORD answered Moses: See! I have made you a god to Pharaoh, and Aaron your brother shall be your prophet.... I will multiply my signs and wonders in the land of Egypt, but still Pharaoh will not listen to you.</p><p>Therefore I will lay my hand on Egypt and by great acts of judgment bring my armies, my people the Israelites, out of the land of Egypt; and the Egyptians will know that I am the LORD, when I stretch out my hand over Egypt and bring the Israelites out of their company.</p>`
+    },
+    8: {
+      label: "Scripture",
+      cite: "Exodus 12:1-14 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/12",
+      text: `<p>The LORD said to Moses and Aaron in the land of Egypt: This month will stand at the head of your calendar; you will reckon it the first month of the year. Tell the whole community of Israel: On the tenth of this month every family must take for itself a lamb, one apiece for each household.... It must be an unblemished lamb, a male one year old....</p><p>They will take some of its blood and apply it to the two doorposts and the lintel of the houses in which they eat it. They will consume its meat that night, roasted over the fire.... This is how you are to eat it: with your loins girt, sandals on your feet and your staff in hand, you will eat it in a hurried fashion. It is the LORD's Passover.</p><p>For on this same night I will go through Egypt, striking down every firstborn of the land.... The blood will be a sign for you on the houses where you are. When I see the blood, I will pass over you; thus, when I strike the land of Egypt, no destructive blow will come upon you.</p><p>This day will be a memorial feast for you, which all your generations are to celebrate with a pilgrimage to the LORD. It is a perpetual statute.</p>`
+    },
+    9: {
+      label: "Scripture",
+      cite: "Exodus 13:17-22 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/13",
+      text: `<p>When Pharaoh finally let the people go, God did not lead them by way of the Philistine territory, even though that was the shortest way; for God considered that if the people were faced with war, they might change their minds and return to Egypt. So God led the people by a roundabout way, through the wilderness toward the Red Sea. Thus the Israelites left Egypt armed for battle.</p><p>The LORD went in front of them in a pillar of cloud by day, to lead them along the way, and in a pillar of fire by night, to give them light, so that they might travel by day and by night.</p><p>Neither the pillar of cloud by day nor the pillar of fire by night left its place in front of the people.</p>`
+    },
+    10: {
+      label: "Scripture",
+      cite: "Exodus 14:13-14, 21-31 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/14",
+      text: `<p>Moses answered the people: Do not fear! Stand your ground and see the victory the LORD will win for you today, for those Egyptians whom you see today you will never see again. The LORD will fight for you; you have only to keep still.</p><p>Then Moses stretched out his hand over the sea, and the LORD swept the sea with a strong east wind throughout the night and so turned it into dry land. When the water was thus divided, the Israelites marched into the midst of the sea on dry land, with the water as a wall to their right and to their left....</p><p>At dawn the LORD cast a glance at the Egyptian army through the pillar of fiery cloud.... Then Moses stretched out his hand over the sea, and at daybreak the sea returned to its normal flow. The Egyptians were fleeing headlong toward it, and the LORD hurled them into its midst....</p><p>On that day the LORD rescued Israel from the power of the Egyptians.... Israel saw the Egyptians lying dead on the seashore, and beheld the great power the LORD had shown against the Egyptians, they feared the LORD and believed in him and in his servant Moses.</p>`
+    },
+    11: {
+      label: "Scripture",
+      cite: "Exodus 19:3-6 · 20:1-17 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/19",
+      text: `<p>Moses went up to the mountain of God. Then the LORD called to him from the mountain and said: This is what you will say to the house of Jacob; tell the Israelites:</p><p>You have seen how I treated the Egyptians and how I carried you on eagles' wings and brought you here to myself.</p><p>Now, if you obey me completely and keep my covenant, you will be my treasured possession among all peoples, though all the earth is mine. You will be for me a kingdom of priests and a holy nation. These are the words you are to speak to the Israelites.</p><p class="sref"><a href="https://bible.usccb.org/bible/exodus/20" target="_blank">Exodus 20:1-17</a></p><p>Then God spoke all these words: I am the LORD your God, who brought you out of the land of Egypt, out of the house of slavery.</p><p>You shall not have other gods beside me. You shall not make for yourself an idol or a likeness of anything in the heavens above or on the earth below or in the waters beneath the earth....</p><p>You shall not take the name of the LORD your God in vain....</p><p>Remember to keep holy the Sabbath day. Six days you may labor and do all your work, but the seventh day is the Sabbath of the LORD your God....</p><p>Honor your father and your mother, that you may have a long life in the land which the LORD, your God, is giving you.</p><p>You shall not kill. You shall not commit adultery. You shall not steal. You shall not bear false witness against your neighbor. You shall not covet your neighbor's house. You shall not covet your neighbor's wife, his male or female slave, his ox or donkey, or anything that belongs to your neighbor.</p>`
+    },
+    12: {
+      label: "Scripture",
+      cite: "Exodus 24:3-11 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/24",
+      text: `<p>When Moses came to the people and related all the words and ordinances of the LORD, they all answered with one voice: We will do everything that the LORD has told us. Moses then wrote down all the words of the LORD. Early the next morning he built an altar at the foot of the mountain with twelve pillars for the twelve tribes of Israel.... Then, after dispatching certain young Israelites to offer burnt sacrifices and sacrifice bulls of well-being to the LORD,</p><p>Moses took half of the blood and put it in large bowls; the other half he dashed on the altar. Taking the book of the covenant, he read it aloud to the people, who answered, All that the LORD has said, we will hear and do. Then he took the blood and sprinkled it on the people, saying, This is the blood of the covenant which the LORD has made with you in accordance with all these words of his.</p><p>Moses then went up with Aaron, Nadab, Abihu, and seventy elders of Israel, and they beheld the God of Israel. Under his feet there appeared to be a pavement of sapphire stone, like the very sky for purity. Though he did not harm these Israelite dignitaries, they beheld God, and they ate and drank.</p>`
+    },
+    13: {
+      label: "Scripture",
+      cite: "Exodus 25:8-22 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/25",
+      text: `<p>"Have them make a sanctuary for me, that I may dwell in their midst. According to all that I show you regarding the pattern of the tabernacle and the pattern of all its furnishings, so you are to make it."</p><p>"Frame an ark of acacia wood.... In the ark you are to put the commandments which I will give you.... You will then plate it with pure gold, inside and out.... Make two cherubim of beaten gold... and place them at the two ends of the propitiatory."</p><p>"There I will meet with you, and from above the cover, from between the two cherubim upon the ark of the commandments, I will tell you all the commands that I wish you to give the Israelites."</p>`
+    },
+    14: {
+      label: "Scripture",
+      cite: "1 Corinthians 10:1-4 · John 6:48-51 (NABRE)",
+      src: "https://bible.usccb.org/bible/1corinthians/10",
+      text: `<p class="sref"><a href="https://bible.usccb.org/bible/1corinthians/10" target="_blank">1 Corinthians 10:1-4</a></p><p>I do not want you to be unaware, brothers, that our ancestors were all under the cloud and all passed through the sea, and all of them were baptized into Moses in the cloud and in the sea. All ate the same spiritual food, and all drank the same spiritual drink, for they drank from a spiritual rock that followed them, and the rock was the Christ.</p><p class="sref"><a href="https://bible.usccb.org/bible/john/6" target="_blank">John 6:48-51</a></p><p>"I am the bread of life. Your ancestors ate the manna in the desert, but they died. This is the bread that comes down from heaven so that one may eat it and not die. I am the living bread that came down from heaven; whoever eats this bread will live forever; and the bread that I will give is my flesh for the life of the world."</p>`
+    },
+    15: {
+      label: "Scripture",
+      cite: "Exodus 32:1-6 · 32:11-14 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/32",
+      text: `<p class="sref"><a href="https://bible.usccb.org/bible/exodus/32" target="_blank">Exodus 32:1-6</a></p><p>When the people became aware of Moses' delay in coming down from the mountain, they gathered around Aaron and said to him: Come, make us a god who will go before us; as for that man Moses who brought us out of the land of Egypt, we do not know what has happened to him. Aaron told them: Have your wives, sons, and daughters take off the golden earrings they are wearing, and bring them to me. So the people took off their earrings and brought them to Aaron. He received the gold from their hands and cast it into a mold, making a golden calf. Then they cried out: These are your gods, Israel, who brought you up from the land of Egypt. On seeing this, Aaron built an altar before the calf and proclaimed: Tomorrow is a feast of the LORD. Early the next day the people offered burnt offerings and brought peace offerings. Then the people sat down to eat and drink, and rose up to revel.</p><p class="sref"><a href="https://bible.usccb.org/bible/exodus/32" target="_blank">Exodus 32:11-14</a></p><p>But Moses implored the LORD his God, saying: Why, LORD, should your anger burn against your people, whom you brought out of the land of Egypt with great power and with a strong hand? Why should the Egyptians say, "With evil intent he brought them out, that he might kill them in the mountains and wipe them out from the face of the earth"? Let your burning anger die down; relent concerning the punishment of your people.</p><p>Remember your servants Abraham, Isaac, and Israel, and how you swore to them by your own self, saying: I will make your descendants as numerous as the stars in the sky, and all this land that I promised I will give your descendants as a perpetual inheritance.</p><p>So the LORD relented concerning the punishment which he had threatened to inflict on his people.</p>`
+    },
+    16: {
+      label: "Scripture",
+      cite: "Exodus 16:13-21 · 17:5-7 (NABRE)",
+      src: "https://bible.usccb.org/bible/exodus/16",
+      text: `<p class="sref"><a href="https://bible.usccb.org/bible/exodus/16" target="_blank">Exodus 16:13-21</a></p><p>In the evening quail came up and covered the camp. In the morning there was a fall of dew about the camp. When the dew had gone up, there was on the surface of the wilderness a fine flake-like frost on the ground. When the Israelites saw it, they said to one another, "What is it?" For they did not know what it was. And Moses said to them, "It is the bread which the LORD has given you to eat."</p><p>The LORD had commanded: "Let each one gather as much as he needs..." The Israelites did so.... And Moses said to them, "Let no one leave any of it over until the morning." But they did not listen to Moses; some left part of it over until the morning, and it bred worms and became foul....</p><p class="sref"><a href="https://bible.usccb.org/bible/exodus/17" target="_blank">Exodus 17:5-7</a></p><p>The LORD said to Moses: Go on ahead of the people, and take along with you some of the elders of Israel, and hold in your hand, as you go, the staff with which you struck the Nile. Be on hand in front of the rock in Horeb, and strike the rock, so that water may issue from it and the people may drink. Moses did this in the presence of the elders of Israel. He called the place Massah and Meribah, because the Israelites quarreled there and tested the LORD, saying, "Is the LORD in our midst or not?"</p>`
+    },
+    17: {
+      label: "Scripture",
+      cite: "Deuteronomy 8:2-4 · Numbers 21:8-9 (NABRE)",
+      src: "https://bible.usccb.org/bible/deuteronomy/8",
+      text: `<p class="sref"><a href="https://bible.usccb.org/bible/deuteronomy/8" target="_blank">Deuteronomy 8:2-4</a></p><p>Remember the whole way by which the LORD your God has led you in the wilderness these forty years, so that he might humble you, testing you to know what was in your heart, whether or not you would keep his commandments. He humbled you by letting you hunger, and then by feeding you with manna, a food not known to your ancestors, in order to make you understand that one does not live by bread alone, but by every word that comes forth from the mouth of the LORD. The clothing you wore did not wear out, nor did your feet swell, these forty years.</p><p class="sref"><a href="https://bible.usccb.org/bible/numbers/21" target="_blank">Numbers 21:8-9</a></p><p>The LORD said to Moses: Make a seraph and mount it on a pole, and all who have been bitten will look at it and live. Accordingly Moses made a bronze serpent and mounted it on a pole, and whenever the serpent bit someone, the person looked at the bronze serpent and lived.</p>`
+    },
+    18: {
+      label: "Scripture",
+      cite: "Deuteronomy 34:1-6, 10-12 (NABRE)",
+      src: "https://bible.usccb.org/bible/deuteronomy/34",
+      text: `<p class="sref"><a href="https://bible.usccb.org/bible/deuteronomy/34" target="_blank">Deuteronomy 34:1-6</a></p><p>Moses went up from the plains of Moab to Mount Nebo, the peak of Pisgah facing Jericho. The LORD showed him the whole land.... The LORD then said to him: This is the land which I swore to Abraham, Isaac, and Jacob that I would give to your descendants. I have let you see it with your own eyes, but you shall not cross over. So there, in the land of Moab, Moses, the servant of the LORD, died as the LORD had said; and he buried him in the valley in the land of Moab, near Beth-peor; and to this day no one knows the place of his burial.</p><p class="sref"><a href="https://bible.usccb.org/bible/deuteronomy/34" target="_blank">Deuteronomy 34:10-12</a></p><p>Since then no prophet has arisen in Israel like Moses, whom the LORD knew face to face. He had no equal in all the signs and wonders the LORD sent him to perform in the land of Egypt against Pharaoh and all his servants and against all his land, and for the might and the terrifying power that Moses exhibited in the sight of all Israel.</p>`
+    },
+    19: {
+      label: "Scripture",
+      cite: "Deuteronomy 30:6 · Ezekiel 36:26-27 (NABRE)",
+      src: "https://bible.usccb.org/bible/deuteronomy/30",
+      text: `<p class="sref"><a href="https://bible.usccb.org/bible/deuteronomy/30" target="_blank">Deuteronomy 30:6</a></p><p>The LORD, your God, will circumcise your hearts and the hearts of your descendants, so that you may love the LORD, your God, with all your heart and all your being, and thus live.</p><p class="sref"><a href="https://bible.usccb.org/bible/ezekiel/36" target="_blank">Ezekiel 36:26-27</a></p><p>I will give you a new heart and place a new spirit within you, taking from your bodies your stony hearts and giving you natural hearts. I will put my spirit within you and make you live by my statutes, careful to observe my decrees.</p>`
+    },
+    20: {
+      label: "Scripture",
+      cite: "Romans 6:3-4 (NABRE)",
+      src: "https://bible.usccb.org/bible/romans/6",
+      text: `<p>Are you unaware that we who were baptized into Christ Jesus were baptized into his death? We were indeed buried with him through baptism into death, so that, just as Christ was raised from the dead by the glory of the Father, we too might live in newness of life.</p>`
+    }
+  };
   let cur = 0;
   let revealed = false;
   let fs = 1;
@@ -544,6 +826,7 @@
       s.classList.toggle('active', i === cur);
       s.classList.toggle('revealed', i === cur && revealed);
     });
+    deck.classList.toggle('step-revealed', revealed);
     document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
     document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
     const dots = document.querySelectorAll('#steps span');
@@ -554,6 +837,7 @@
       else { v.pause(); }
     });
     updateNotes();
+    updatePanel();
   }
   function next() {
     if (!revealed) { revealed = true; }
@@ -572,10 +856,48 @@
     document.querySelectorAll('.slide video').forEach(v => { v.muted = !soundOn; });
     document.getElementById('soundBtn').innerHTML = soundOn ? '&#128266;' : '&#128263;';
   }
+  function updatePanel() {
+    const isZh = document.body.classList.contains('lang-zh');
+    const p = (isZh ? panelsZh : panelsEn)[cur];
+    document.getElementById('sideLbl').textContent = '\uD83D\uDCD6 ' + (p ? p.label : (isZh ? '聖經 / 教理' : 'Scripture / Catechism'));
+    const src = (p && p.src) || (isZh ? 'https://www.ccreadbible.org/chinesebible/sigao' : 'https://bible.usccb.org/bible');
+    document.getElementById('sideCite').innerHTML = p ? p.cite + '　<a href="' + src + '" target="_blank">' + (isZh ? '來源' : 'Source') + '</a>' : '';
+    document.getElementById('sideText').innerHTML = p ? p.text : (isZh ? '<p class="vend">此頁沒有附上聖經或教理原文。</p>' : '<p class="vend">No scripture or catechism text is attached to this slide.</p>');
+  }
+  function toggleSide() { document.getElementById('side').classList.toggle('on'); }
+  (function () {
+    const side = document.getElementById('side');
+    const grip = document.getElementById('sideGrip');
+    let startX = 0, startW = 0, dragging = false;
+    function setW(px) {
+      px = Math.min(window.innerWidth * 0.6, Math.max(240, px));
+      side.style.width = px + 'px';
+      side.style.maxWidth = 'none';
+    }
+    grip.addEventListener('pointerdown', e => {
+      if (window.innerWidth <= 900) return;
+      dragging = true; startX = e.clientX; startW = side.getBoundingClientRect().width;
+      grip.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    grip.addEventListener('pointermove', e => { if (dragging) setW(startW + (startX - e.clientX)); });
+    grip.addEventListener('pointerup', () => {
+      dragging = false;
+      try { localStorage.setItem('sideW', side.style.width); } catch (err) {}
+    });
+    try {
+      const saved = parseFloat(localStorage.getItem('sideW'));
+      if (saved && window.innerWidth > 900) setW(saved);
+    } catch (err) {}
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 900) { side.style.width = ''; side.style.maxWidth = ''; }
+      else if (side.style.width) setW(parseFloat(side.style.width));
+    });
+  })();
   function toggleLang() {
     document.body.classList.toggle('lang-zh');
     document.body.classList.toggle('lang-en');
     updateNotes();
+    updatePanel();
   }
   function zoomText(d) {
     if (d === 0) fs = 1;
@@ -591,6 +913,7 @@
     const k = e.key.toLowerCase();
     if (k === 'n') toggleNotes();
     if (k === 'm') toggleSound();
+    if (k === 'b') toggleSide();
     if (k === 'i') deck.classList.toggle('image-mode');
     if (k === 'l') toggleLang();
     if (k === '+' || k === '=') zoomText(0.1);
@@ -617,7 +940,9 @@
   // Tap zones (mobile): left edge = back, right edge = forward, middle = safe
   document.addEventListener('click', e => {
     if (swiped) { swiped = false; return; }
-    if (e.target.closest('a, button, .notes')) return;
+    if (e.target.closest('a, button, .notes, .side')) return;
+    const sel = window.getSelection ? String(window.getSelection()) : '';
+    if (sel.length > 0) return;
     const w = window.innerWidth;
     if (e.clientX > w * 0.78) next();
     else if (e.clientX < w * 0.22) prev();

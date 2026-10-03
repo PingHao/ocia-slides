@@ -1,6 +1,5 @@
 # OCIA Class 5 — The Great Leader of the Chosen People: Moses
 **Date:** October 4, 2026 — 27th Sunday in Ordinary Time (Year A)
-**Presenter:** Hao Ping
 **Time plan:** 45-minute class (each slide header shows its cumulative time span, e.g. "(3–5 min)" = minutes 3 through 5). If pressed for time: **protect slides 9 and 15**; compress slides 3, 7, 12, and 14.
 **Teaching spine (the essential path):** God calls Moses → God liberates Israel in the Exodus → God establishes the covenant → God dwells among his people and teaches them worship → Moses intercedes and points toward Christ → Christians journey toward fulfillment through Baptism, Eucharist, and the new covenant.
 
