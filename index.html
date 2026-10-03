@@ -96,10 +96,9 @@
 
   /* ---------- Deck card ---------- */
   .deck {
-    display: flex;
-    flex-direction: column;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    position: relative;
+    display: block;
+    min-height: 26rem;
     border-radius: var(--radius);
     overflow: hidden;
     text-decoration: none;
@@ -113,7 +112,6 @@
   .deck:focus-visible {
     transform: translateY(-6px);
     border-color: var(--accent);
-    background: var(--surface-hover);
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.30);
   }
 
@@ -122,18 +120,16 @@
     outline-offset: 3px;
   }
 
+  /* Preview image — fills the entire card */
   .deck .thumb {
-    aspect-ratio: 16 / 9;
+    position: absolute;
+    inset: 0;
     background: linear-gradient(135deg, var(--accent-soft), var(--surface-hover));
-    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    position: relative;
   }
 
-  /* Preview image — falls back to a numbered badge if image missing */
   .deck .thumb img {
     width: 100%;
     height: 100%;
@@ -150,11 +146,14 @@
   }
 
   .deck .body {
-    padding: 1.35rem 1.4rem 1.5rem;
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 2.5rem 1.4rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    flex: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    color: #fff;
   }
 
   .deck h2 {
@@ -176,7 +175,7 @@
     justify-content: space-between;
     margin-top: 0.75rem;
     font-size: 0.82rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.75);
   }
 
   .deck .open {
@@ -184,7 +183,7 @@
     align-items: center;
     gap: 0.35rem;
     font-weight: 600;
-    color: var(--accent);
+    color: #fff;
   }
 
   .deck .arrow {

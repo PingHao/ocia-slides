@@ -1,0 +1,17 @@
+{
+  "video_id": "movie_moses",
+  "title_zh": "",
+  "title_en": "",
+  "target_duration": 120,
+  "chars_per_minute": 260,
+  "scene_padding": 0.4,
+  "fps": 30,
+  "resolution": [1920, 1080],
+  "vertical": false,
+  "tts": {
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+0%"
+  },
+  "style_lock": "",
+  "scenes": []
+}
