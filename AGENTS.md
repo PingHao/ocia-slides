@@ -21,3 +21,7 @@ All Catechism of the Catholic Church (CCC / 《天主教教理》) quotes and re
 Verify paragraph numbers against these sources before adding or citing them.
 
 Exact chapter URL patterns (both bibles) and navigation notes are documented in the repo-local `catholic-bible-sources` skill (`.kilo/skills/catholic-bible-sources/SKILL.md`) — use it to fetch, verify, and link specific chapters.
+
+## SSH keys & secrets
+
+Never read, display, copy, or transmit private keys or credentials — including anything under `~/.ssh/` (private keys, agent sockets, known_hosts), `.env` files, or API tokens. Exercise keys only through their intended tools (`ssh -T`, `git push`) without printing their contents. `~/.ssh/**` is additionally blocked by Kilo permissions (deny rules in `~/.config/kilo/kilo.jsonc`).
