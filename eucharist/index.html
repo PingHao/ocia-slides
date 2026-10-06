@@ -8,30 +8,25 @@
 :root{
   --maroon:#5e1a1e; --maroon-dk:#421014; --gold:#c9a227; --gold-lt:#e4c85a;
   --cream:#fdfbf6; --parch:#f6efdd; --ink:#2b2620; --muted:#6b5d4f; --dark:#141210;
+  --paper:#f3ecdd; --muted2:#a89c88; --foot:#7d7462;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#000;overflow:hidden}
-body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC","Heiti TC",sans-serif;color:var(--ink)}
+body{font-family:'Songti TC','PMingLiU','Noto Serif TC',Georgia,serif;color:var(--paper)}
 #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000}
-#stage{width:1280px;height:720px;position:relative;flex:none;transform-origin:center center;background:var(--cream);overflow:hidden}
-.slide{position:absolute;inset:0;display:none;padding:56px 72px;animation:fade .35s ease}
+#stage{width:1280px;height:720px;position:relative;flex:none;transform-origin:center center;background:var(--dark);overflow:hidden}
+.slide{position:absolute;inset:0;display:none;padding:56px 72px;animation:fade .35s ease;background:var(--dark);color:var(--paper)}
 .slide.active{display:block}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 .kicker{font-size:15px;font-weight:700;letter-spacing:6px;color:var(--gold);margin-bottom:10px}
 .kicker::after{content:"";display:block;width:72px;height:3px;background:var(--gold);margin-top:8px}
-h1{font-size:42px;color:var(--maroon);margin-bottom:26px;line-height:1.25}
+h1{font-size:42px;color:#fff;margin-bottom:26px;line-height:1.25}
 .slide ul{list-style:none}
-.slide ul li{font-size:22px;line-height:1.65;margin-bottom:14px;padding-left:28px;position:relative}
+.slide ul li{font-size:22px;line-height:1.65;margin-bottom:14px;padding-left:28px;position:relative;color:var(--paper)}
 .slide ul li::before{content:"";position:absolute;left:2px;top:16px;width:10px;height:10px;background:var(--gold);border-radius:50%}
-.slide ul li b{color:var(--maroon)}
-blockquote{font-size:25px;line-height:1.8;font-style:italic;color:var(--ink);border-left:5px solid var(--gold);padding-left:26px;margin:6px 0 18px}
-cite{display:block;font-style:normal;font-size:17px;color:var(--muted)}
-.slide.parch{background:var(--parch)}
-.slide.dark{background:var(--dark);color:var(--cream)}
-.slide.dark h1{color:#fff}
-.slide.maroon{background:var(--maroon);color:#fff}
-.slide.maroon h1{color:#fff}
-.slide.maroon-dk{background:var(--maroon-dk);color:#fff}
+.slide ul li b{color:var(--gold-lt)}
+blockquote{font-size:25px;line-height:1.8;font-style:italic;color:var(--paper);border-left:5px solid var(--gold);padding-left:26px;margin:6px 0 18px}
+cite{display:block;font-style:normal;font-size:17px;color:var(--muted2)}
 /* cover */
 .cover{display:flex;align-items:center;gap:48px;height:100%}
 .cover .ctext{flex:1}
@@ -64,8 +59,7 @@ video{width:960px;max-height:500px;background:#000;box-shadow:0 8px 32px rgba(0,
 .closing .thanks{font-size:40px;font-weight:700;color:#fff;margin-bottom:16px}
 .closing .srcline{font-size:13px;color:var(--gold-lt)}
 /* footer */
-.foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
-.slide.dark .foot,.slide.maroon .foot,.slide.maroon-dk .foot{color:var(--gold-lt)}
+.foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:12px;color:var(--foot)}
 /* notes */
 .notes{position:absolute;left:0;right:0;bottom:0;background:rgba(20,18,16,.94);color:#ffe9a8;font-size:15px;line-height:1.6;padding:14px 72px;display:none;z-index:40;max-height:40%}
 body.show-notes .notes{display:block}
@@ -81,17 +75,17 @@ body.show-notes .notes{display:block}
 </head>
 <body>
 <div id="viewport"><div id="stage">
-<section class="slide maroon"><div class="cover"><div class="ctext"><div class="kicker">聖心堂慕道班・2026年11月1日</div><h1>感恩祭（彌撒）</h1><div class="sub">從逾越節到祭台：盟約、祭獻與共融</div></div><div class="cimg"><img class="zoomable" src="salvador-eucaristico.jpg" data-cap="亞涅茲《聖體救主》（普拉多博物館）"></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>1 / 30</span></div></section>
+<section class="slide dark"><div class="cover"><div class="ctext"><div class="kicker">聖心堂慕道班・2026年11月1日</div><h1>感恩祭（彌撒）</h1><div class="sub">從逾越節到祭台：盟約、祭獻與共融</div></div><div class="cimg"><img class="zoomable" src="salvador-eucaristico.jpg" data-cap="亞涅茲《聖體救主》（普拉多博物館）"></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>1 / 30</span></div></section>
 <section class="slide "><div class="kicker">開場</div><h1>今晚的路線</h1><ul><li>天主怎樣餵養祂的子民——從逾越節羔羊，經過最後晚餐，到主日的祭台。</li><li>盟約 → 逾越節 → 最後晚餐 → 聖經 → 初期教會 → 彌撒 → 領受聖體的意義</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>2 / 30</span></div><aside class="notes">講解：今晚走一條線：天主怎樣餵養祂的子民——從逾越節羔羊，經過最後晚餐，到主日的祭台。</aside></section>
 <section class="slide "><div class="kicker">舊約</div><h1>天主立盟約——用一頓飯作印記</h1><ul><li>整部舊約，天主不斷與人立盟約：亞巴郎（創12、15）、梅瑟（出19–24）。</li><li>每個盟約形狀都一樣：天主召叫 → 許下承諾 → 人答應 → 以祭獻作印記。</li><li>印記幾乎都是一頓共餐——一起吃飯，成為一家人。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>3 / 30</span></div><aside class="notes">講解：天主不只給誡命，祂建立一個家庭；家庭是一起吃飯的。今晚就跟著這條「盟約之餐」的線走。</aside></section>
 <section class="slide dark"><div class="kicker">舊約</div><div class="artrow"><div class="artimg"><img class="zoomable" src="rubens-melchizedek.jpg" data-cap="魯本斯《亞巴郎與麥基洗德相遇》"></div><div class="artcap"><h3>魯本斯《亞巴郎與麥基洗德相遇》</h3><p>麥基洗德獻上餅和酒（創14）——聖體聖事的預像</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>4 / 30</span></div><aside class="notes">講解：麥基洗德是至高天主的司祭，他獻上的餅和酒，教會從起初就認出是聖體的預像。</aside></section>
 <section class="slide "><div class="kicker">舊約</div><h1>逾越節：出谷紀第十二章</h1><ul><li><b>羔羊：</b>一歲、雄性、無殘疾</li><li><b>血：</b>塗在門框和門楣上</li><li><b>吃：</b>烤著吃，配無酵餅和苦菜——束腰、穿鞋、手持棍杖，急速吃</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>5 / 30</span></div><aside class="notes">講解：天主親自規定每個細節，因為細節都在教導。無殘疾的羔羊——完美；木頭上的血——得救的記號；無酵餅——匆忙、除舊；苦菜——為奴之苦；旅人的姿態——天主要帶他們去一個地方。</aside></section>
-<section class="slide parch"><div class="kicker">舊約</div><h1>「這是紀念日」</h1><blockquote>這血在你們所住的房屋上，當作你們的記號：我打擊埃及國的時候，一見這血，就越過你們去，毀滅的災禍不落在你們身上。這一天將是你們的紀念日，要當作上主的節日來慶祝；你們要世世代代過這節日，作為永遠的法規。</blockquote><cite>——出 12:13–14</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>6 / 30</span></div><aside class="notes">講解：兩個重點。得救靠的是血，不是人的好。「紀念」不是懷舊：禮儀使天主的救援臨於每一代。注意天主把孩子的問題寫進禮儀裡——「這禮有什麼意思？」（出12:26–27）禮儀本身就是要理講授，教會至今如此。</aside></section>
+<section class="slide dark"><div class="kicker">舊約</div><h1>「這是紀念日」</h1><blockquote>這血在你們所住的房屋上，當作你們的記號：我打擊埃及國的時候，一見這血，就越過你們去，毀滅的災禍不落在你們身上。這一天將是你們的紀念日，要當作上主的節日來慶祝；你們要世世代代過這節日，作為永遠的法規。</blockquote><cite>——出 12:13–14</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>6 / 30</span></div><aside class="notes">講解：兩個重點。得救靠的是血，不是人的好。「紀念」不是懷舊：禮儀使天主的救援臨於每一代。注意天主把孩子的問題寫進禮儀裡——「這禮有什麼意思？」（出12:26–27）禮儀本身就是要理講授，教會至今如此。</aside></section>
 <section class="slide "><div class="kicker">新約</div><h1>最後晚餐：一頓逾越節晚餐</h1><ul><li>「你願我們在哪裡，給你預備吃逾越節晚餐？」——門徒去預備了。</li><li>晚上，祂與十二門徒坐席。</li><li>在逾越節晚餐中，新的事發生了：拿餅、祝福、擘開——還有杯。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>7 / 30</span></div><aside class="notes">講解：關鍵：耶穌沒有廢除逾越節，祂慶祝它，並在其中建立新的禮。「新約的血」呼應出24:8梅瑟灑血立約。西乃山的形狀重現——這次以祂自己的血作印記，在前一夜預先獻上。</aside></section>
 <section class="slide dark"><div class="kicker">新約</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="tintoretto-last-supper.jpg" data-cap="丁托列托《最後晚餐》(1594)"></div><div class="artcap"><h3>丁托列托《最後晚餐》(1594)</h3><p>基督在畫面中央分餅，光照全場</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>8 / 30</span></div><aside class="notes">講解：關鍵：耶穌沒有廢除逾越節，祂慶祝它，並在其中建立新的禮。</aside></section>
-<section class="slide parch"><div class="kicker">新約</div><h1>「這是我的身體……這是我的血」</h1><blockquote>他們正吃晚餐的時候，耶穌拿起餅來，祝福了，擘開遞給門徒說：「你們拿去吃罷！這是我的身體。」然後，又拿起杯來，祝謝了，遞給他們說：「你們都由其中喝罷！因為這是我的血，新約的血，為大眾傾流，以赦免罪過。我告訴你們：從今以後，我不再喝這葡萄汁了，直到在我父的國裏那一天，與你們同喝新酒。」</blockquote><cite>——瑪 26:26–29・另見谷14・路22・格前11</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>9 / 30</span></div><aside class="notes">講解：新約中重複最多的話。「紀念」就是逾越節的紀念——禮儀使祭獻臨在，不只是回想。所以彌撒是祭獻，不是追思會。29節別錯過：「在我父的國裏……與你們同喝新酒」——指向天國的婚宴：聖體是未來的預嘗。</aside></section>
+<section class="slide dark"><div class="kicker">新約</div><h1>「這是我的身體……這是我的血」</h1><blockquote>他們正吃晚餐的時候，耶穌拿起餅來，祝福了，擘開遞給門徒說：「你們拿去吃罷！這是我的身體。」然後，又拿起杯來，祝謝了，遞給他們說：「你們都由其中喝罷！因為這是我的血，新約的血，為大眾傾流，以赦免罪過。我告訴你們：從今以後，我不再喝這葡萄汁了，直到在我父的國裏那一天，與你們同喝新酒。」</blockquote><cite>——瑪 26:26–29・另見谷14・路22・格前11</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>9 / 30</span></div><aside class="notes">講解：新約中重複最多的話。「紀念」就是逾越節的紀念——禮儀使祭獻臨在，不只是回想。所以彌撒是祭獻，不是追思會。29節別錯過：「在我父的國裏……與你們同喝新酒」——指向天國的婚宴：聖體是未來的預嘗。</aside></section>
 <section class="slide "><div class="kicker">聖經</div><h1>「我的肉是真實的食品」</h1><ul><li>48 我是生命的食糧。……51 我是從天上降下的生活的食糧；誰若吃了這食糧，必要生活直到永遠。我所要賜給的食糧，就是我的肉，是為世界的生命而賜給的。</li><li>53 「我實實在在告訴你們：你們若不吃人子的肉，不喝他的血，在你們內，便沒有生命。」</li><li>55 「因為我的肉，是真實的食品；我的血，是真實的飲料。」</li><li>56 「誰吃我的肉，並喝我的血，便住在我內，我也住在他內。」</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>10 / 30</span></div><aside class="notes">講解：這是福音中唯一一次，耶穌因一條教導失去跟隨者，卻不追回去解釋「我是比喻」。祂是認真的。注意55節「真實的食品」；56節「住在我內，我也住在他內」——聖體是雙向的寓居。</aside></section>
-<section class="slide parch"><div class="kicker">聖經</div><h1>門徒離去，伯多祿留下</h1><blockquote>從此，他的門徒中有許多人退去了，不再同他往來。於是耶穌向那十二人說：「難道你們也願走嗎？」西滿伯多祿回答說：「主！惟你有永生的話，我們去投奔誰呢？我們相信，而且已知道你是天主的聖者。」</blockquote><cite>——若 6:66–69</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>11 / 30</span></div><aside class="notes">講解：伯多祿的回答就是教會至今的回答：即使難懂，我們留下。</aside></section>
+<section class="slide dark"><div class="kicker">聖經</div><h1>門徒離去，伯多祿留下</h1><blockquote>從此，他的門徒中有許多人退去了，不再同他往來。於是耶穌向那十二人說：「難道你們也願走嗎？」西滿伯多祿回答說：「主！惟你有永生的話，我們去投奔誰呢？我們相信，而且已知道你是天主的聖者。」</blockquote><cite>——若 6:66–69</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>11 / 30</span></div><aside class="notes">講解：伯多祿的回答就是教會至今的回答：即使難懂，我們留下。</aside></section>
 <section class="slide "><div class="kicker">聖經</div><h1>初期教會：「擘餅」</h1><ul><li>「他們專心聽取宗徒的訓誨，時常團聚，擘餅，祈禱。」——宗2:42</li><li>「每天都成群結隊地前往聖殿，也挨戶擘餅，懷著歡樂和誠實的心一起進食。」——宗2:46</li><li>「上主天天使那些得救的人加入會眾。」——宗2:47</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>12 / 30</span></div><aside class="notes">講解：聖體聖事不是後來的發明，是教會的第一口呼吸。注意次序：先有擘餅，才有「上主使人加入」。聖體建立教會，教會才去傳教。</aside></section>
 <section class="slide "><div class="kicker">聖經</div><h1>厄瑪烏：在餐桌上被認出</h1><ul><li>路上祂講解聖經——「我們的心不是火熱的嗎？」</li><li>「當耶穌與他們坐下吃飯的時候，就拿起餅來，祝福了，擘開，遞給他們。他們的眼睛開了，這纔認出耶穌來。」——路24:30–31</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>13 / 30</span></div><aside class="notes">講解：聖經預備心，聖事賜下相遇。心在聽道時火熱，眼睛卻在擘餅時開。記住這個形狀——就是每台彌撒的形狀。</aside></section>
 <section class="slide dark"><div class="kicker">聖經</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="rembrandt-emmaus.jpg" data-cap="林布蘭《厄瑪烏的晚餐》(1648)"></div><div class="artcap"><h3>林布蘭《厄瑪烏的晚餐》(1648)</h3><p>燭光下耶穌擘餅，門徒驚悟</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>14 / 30</span></div><aside class="notes">講解：聖經預備心，聖事賜下相遇。心在聽道時火熱，眼睛卻在擘餅時開。</aside></section>
@@ -108,9 +102,9 @@ body.show-notes .notes{display:block}
 <section class="slide dark"><div class="kicker">活出來</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="rembrandt-prodigal-son.jpg" data-cap="林布蘭《浪子回頭》(1669)"></div><div class="artcap"><h3>林布蘭《浪子回頭》(1669)</h3><p>父親擁抱跪著的兒子——告解就是回家</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>25 / 30</span></div><aside class="notes">講解：預備不是門檻，是迎接所愛之人的方式——告解就是回家。</aside></section>
 <section class="slide "><div class="kicker">活出來</div><h1>從聖體生活</h1><ul><li>五個習慣，一週的節奏：</li><li><b>1. 好好預備</b>領聖體</li><li><b>2. 探訪</b>明供的聖體</li><li><b>3. 朝拜聖體</b></li><li><b>4. 定期告解</b></li><li><b>5. 讀聖人的傳記</b>——那些深愛聖體的人</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>26 / 30</span></div><aside class="notes">講解：具體化：說出本堂朝拜聖體的時間。建議本週一次十五分鐘的探訪。可以提的聖人：聖女大德蘭、聖維雅納、聖小德蘭、真福卡洛・阿庫蒂斯——「聖體聖事是我通往天堂的高速公路」。</aside></section>
 <section class="slide dark"><div class="kicker">活出來</div><div class="artrow"><div class="artimg"><img class="zoomable" src="monaco-magi.jpg" data-cap="洛倫佐・摩納哥《三王來朝》(1420)"></div><div class="artcap"><h3>洛倫佐・摩納哥《三王來朝》(1420)</h3><p>賢士俯伏朝拜聖嬰——朝拜的樣子</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>27 / 30</span></div><aside class="notes">講解：朝拜聖體：賢士走了遠路，只為俯伏朝拜。這週，找十五分鐘，去探訪祂。</aside></section>
-<section class="slide maroon"><div class="kicker">帶回家</div><div class="takehome"><h1>帶回家的三句話</h1><div class="item"><div class="num">一</div><div class="txt">聖體聖事是基督寶血所立的新約——逾越節的成全，不是一個象徵。</div></div><div class="item"><div class="num">二</div><div class="txt">教會從宗徒時代就這樣慶祝——主日復主日，不朽之藥。</div></div><div class="item"><div class="num">三</div><div class="txt">基督成為你的貴賓——預備好自己，讓祂使你與祂合而為一。</div></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>28 / 30</span></div><aside class="notes">講解：慢慢說，說兩遍也可以。這是給停車場的三句話——請大家寫下一句。</aside></section>
+<section class="slide dark"><div class="kicker">帶回家</div><div class="takehome"><h1>帶回家的三句話</h1><div class="item"><div class="num">一</div><div class="txt">聖體聖事是基督寶血所立的新約——逾越節的成全，不是一個象徵。</div></div><div class="item"><div class="num">二</div><div class="txt">教會從宗徒時代就這樣慶祝——主日復主日，不朽之藥。</div></div><div class="item"><div class="num">三</div><div class="txt">基督成為你的貴賓——預備好自己，讓祂使你與祂合而為一。</div></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>28 / 30</span></div><aside class="notes">講解：慢慢說，說兩遍也可以。這是給停車場的三句話——請大家寫下一句。</aside></section>
 <section class="slide "><div class="kicker">反省</div><h1>反省</h1><ul><li>「感恩祭建立教會」——這週我該怎樣對待身邊的人？</li><li>聖保祿說「人應省察自己」（格前11:28）——我的週六晚上可以怎樣省察？</li><li>這週，哪裡可以安插一次短短的聖體探訪？</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>29 / 30</span></div><aside class="notes">講解：讀出來，靜默兩分鐘——或分組分享。分享要短，最後帶回基督的臨在。</aside></section>
-<section class="slide maroon-dk"><div class="closing"><blockquote>「因為餅只是一個，我們雖多，只是一個身體，因為我們眾人都共享這一個餅。」</blockquote><div class="src">——格前 10:17</div><div class="thanks">謝謝大家</div><div class="srcline">資料：思高聖經・《天主教要理》・教父</div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>30 / 30</span></div><aside class="notes">講解：以祈禱結束——「基督的靈魂」禱文，或簡單的謝恩。</aside></section>
+<section class="slide dark"><div class="closing"><blockquote>「因為餅只是一個，我們雖多，只是一個身體，因為我們眾人都共享這一個餅。」</blockquote><div class="src">——格前 10:17</div><div class="thanks">謝謝大家</div><div class="srcline">資料：思高聖經・《天主教要理》・教父</div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>30 / 30</span></div><aside class="notes">講解：以祈禱結束——「基督的靈魂」禱文，或簡單的謝恩。</aside></section>
 </div></div>
 <div id="lightbox"><img id="lbimg" alt=""><div class="lbcap" id="lbcap"></div></div>
 <div id="hint">← → 翻頁・F 全螢幕・N 講稿・點畫放大</div>
