@@ -6,6 +6,7 @@
 <title>感恩祭（彌撒）・聖心堂慕道班</title>
 <style>
 :root{
+  --fs:1;
   --maroon:#5e1a1e; --maroon-dk:#421014; --gold:#c9a227; --gold-lt:#e4c85a;
   --cream:#fdfbf6; --parch:#f6efdd; --ink:#2b2620; --muted:#6b5d4f; --dark:#141210;
   --paper:#f3ecdd; --muted2:#a89c88; --foot:#7d7462;
@@ -72,6 +73,12 @@ body.show-notes .notes{display:block}
 /* counter + hint */
 #counter{position:fixed;right:18px;bottom:14px;color:#8a8a8a;font-size:13px;z-index:50}
 #hint{position:fixed;left:18px;bottom:14px;color:#5a5a5a;font-size:12px;z-index:50}
+/* font zoom */
+.slide .kicker,.slide h1,.slide li,.slide blockquote,.slide cite,.slide .artcap h3,.slide .artcap p,.slide .takehome .num,.slide .takehome .txt,.slide .mergetext .mcap,.slide .vidcap,.slide .cover .sub,.slide .cover .date,.slide .closing .thanks,.slide .closing .src,.slide .closing .srcline{zoom:var(--fs)}
+#zoomctl{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:50;display:flex;gap:6px;align-items:center}
+#zoomctl button{background:rgba(30,28,26,.9);color:var(--gold);border:1px solid var(--gold);border-radius:4px;font-size:13px;padding:3px 10px;cursor:pointer;font-family:inherit}
+#zoomctl button:hover{background:rgba(60,55,50,.95)}
+#zoomLevel{color:#8a8a8a;font-size:12px;min-width:42px;text-align:center}
 </style>
 </head>
 <body>
@@ -105,8 +112,9 @@ body.show-notes .notes{display:block}
 <section class="slide dark"><div class="closing"><blockquote>「因為餅只是一個，我們雖多，只是一個身體，因為我們眾人都共享這一個餅。」</blockquote><div class="src">——格前 10:17</div><div class="thanks">謝謝大家</div><div class="srcline">資料：思高聖經・《天主教要理》</div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>27 / 27</span></div><aside class="notes">講解：以祈禱結束：「主耶穌，你說你是生命的食糧。求你開啟我們的心，認識你在感恩祭中的臨在；也預備我們的心，有一天能相稱地領受你，與你合一。阿們。」</aside></section>
 </div></div>
 <div id="lightbox"><img id="lbimg" alt=""><div class="lbcap" id="lbcap"></div></div>
-<div id="hint">← → 翻頁・F 全螢幕・N 講稿・點畫放大</div>
+<div id="hint">← → 翻頁・F 全螢幕・N 講稿・+ − 縮放文字・點畫放大</div>
 <div id="counter"></div>
+<div id="zoomctl"><button id="zout" title="文字縮小">A−</button><span id="zoomLevel">100%</span><button id="zin" title="文字放大">A+</button></div>
 <script>
 const slides=[...document.querySelectorAll('.slide')];
 let idx=0;
@@ -119,6 +127,15 @@ function show(i){
   const v=slides[idx].querySelector('video');
   document.querySelectorAll('video').forEach(x=>{if(x!==v)x.pause();});
 }
+let fs=1;
+function zoomText(d){
+  if(d===0)fs=1;
+  else fs=Math.round(Math.min(1.6,Math.max(0.8,fs+d))*100)/100;
+  document.documentElement.style.setProperty('--fs',fs);
+  document.getElementById('zoomLevel').textContent=Math.round(fs*100)+'%';
+}
+document.getElementById('zin').addEventListener('click',e=>{e.stopPropagation();zoomText(0.1);});
+document.getElementById('zout').addEventListener('click',e=>{e.stopPropagation();zoomText(-0.1);});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closeLB();return;}
   if(document.getElementById('lightbox').classList.contains('open'))return;
@@ -133,6 +150,9 @@ document.addEventListener('keydown',e=>{
     else document.documentElement.requestFullscreen().catch(()=>{});
   }
   else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('show-notes');}
+  else if(e.key==='+'||e.key==='='){zoomText(0.1);}
+  else if(e.key==='-'||e.key==='_'){zoomText(-0.1);}
+  else if(e.key==='0'){zoomText(0);}
 });
 let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;},{passive:true});
