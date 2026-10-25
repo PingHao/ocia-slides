@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>感恩祭（彌撒）・聖心堂慕道班</title>
+<title>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</title>
 <style>
 :root{
   --fs:1;
@@ -49,11 +49,25 @@ cite{display:block;font-style:normal;font-size:17px;color:var(--muted2)}
 .vidwrap{display:flex;flex-direction:column;align-items:center}
 video{width:960px;max-height:500px;background:#000;box-shadow:0 8px 32px rgba(0,0,0,.5)}
 .vidcap{margin-top:12px;font-size:16px;color:var(--gold-lt)}
-/* takehome */
-.takehome h1{font-size:44px;color:#fff;margin-bottom:36px}
-.takehome .item{display:flex;gap:20px;margin-bottom:26px;align-items:baseline}
-.takehome .num{font-size:34px;font-weight:700;color:var(--gold);flex:0 0 56px}
-.takehome .txt{font-size:25px;color:#fff;line-height:1.5}
+/* two-column text+image */
+.cols{display:flex;gap:44px;align-items:flex-start}
+.cols .col{flex:1;min-width:0}
+.cols .col.imgcol{flex:0 0 330px;display:flex;align-items:center;justify-content:center}
+.cols .col.imgcol img{max-height:520px;max-width:100%;object-fit:contain;box-shadow:0 8px 32px rgba(0,0,0,.5);cursor:zoom-in}
+/* dense variants */
+.slide.dbl ul li{font-size:19px;line-height:1.6;margin-bottom:10px}
+.slide.dbl ul li::before{top:13px}
+.slide.dbl blockquote{font-size:19px;line-height:1.7;margin:4px 0 10px}
+.slide.dbl blockquote.em{font-size:22px;line-height:1.7}
+.slide.dbl cite{font-size:15px;margin-bottom:8px}
+.slide .cols ul li{font-size:17.5px;line-height:1.55;margin-bottom:9px}
+.slide .cols ul li::before{top:12px}
+.slide ul.sub{margin-top:2px;margin-bottom:12px}
+.slide ul.sub li{font-size:17px;margin-bottom:6px}
+.slide ul.sub li::before{width:7px;height:7px;top:12px}
+.grp{font-size:21px;font-weight:700;color:var(--gold-lt);margin:6px 0 10px;line-height:1.4}
+.lead{font-size:22px;color:var(--cream);line-height:1.7;margin-bottom:16px}
+.lead.muted{color:var(--muted2);font-style:italic}
 /* closing */
 .closing{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center}
 .closing blockquote{border:none;font-size:30px;color:#fff;padding:0;max-width:900px}
@@ -62,9 +76,6 @@ video{width:960px;max-height:500px;background:#000;box-shadow:0 8px 32px rgba(0,
 .closing .srcline{font-size:13px;color:var(--gold-lt)}
 /* footer */
 .foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:12px;color:var(--foot)}
-/* notes */
-.notes{position:absolute;left:0;right:0;bottom:0;background:rgba(20,18,16,.94);color:#ffe9a8;font-size:15px;line-height:1.6;padding:14px 72px;display:none;z-index:40;max-height:40%}
-body.show-notes .notes{display:block}
 /* lightbox */
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;z-index:100;cursor:zoom-out}
 #lightbox.open{display:flex}
@@ -74,7 +85,7 @@ body.show-notes .notes{display:block}
 #counter{position:fixed;right:18px;bottom:14px;color:#8a8a8a;font-size:13px;z-index:50}
 #hint{position:fixed;left:18px;bottom:14px;color:#5a5a5a;font-size:12px;z-index:50}
 /* font zoom */
-.slide .kicker,.slide h1,.slide li,.slide blockquote,.slide cite,.slide .artcap h3,.slide .artcap p,.slide .takehome .num,.slide .takehome .txt,.slide .mergetext .mcap,.slide .vidcap,.slide .cover .sub,.slide .cover .date,.slide .closing .thanks,.slide .closing .src,.slide .closing .srcline{zoom:var(--fs)}
+.slide .kicker,.slide h1,.slide li,.slide blockquote,.slide cite,.slide .artcap h3,.slide .artcap p,.slide .cover .sub,.slide .cover .date,.slide .grp,.slide .lead,.slide ul.sub li,.slide .cols ul li,.slide .vidcap{zoom:var(--fs)}
 #zoomctl{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:50;display:flex;gap:6px;align-items:center}
 #zoomctl button{background:rgba(30,28,26,.9);color:var(--gold);border:1px solid var(--gold);border-radius:4px;font-size:13px;padding:3px 10px;cursor:pointer;font-family:inherit}
 #zoomctl button:hover{background:rgba(60,55,50,.95)}
@@ -83,36 +94,62 @@ body.show-notes .notes{display:block}
 </head>
 <body>
 <div id="viewport"><div id="stage">
-<section class="slide dark"><div class="cover"><div class="ctext"><div class="kicker">聖心堂慕道班・2026年11月1日</div><h1>感恩祭（彌撒）</h1><div class="sub">從逾越節到祭台：盟約、祭獻與共融</div></div><div class="cimg"><img class="zoomable" src="salvador-eucaristico.jpg" data-cap="亞涅茲《聖體救主》（普拉多博物館）"></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>1 / 27</span></div></section>
-<section class="slide "><div class="kicker">開場</div><h1>今天的路線</h1><ul><li>天主怎樣餵養祂的子民——從逾越節羔羊，經過最後晚餐，到主日的祭台。</li><li>盟約 → 逾越節 → 最後晚餐 → 聖經 → 初期教會 → 彌撒 → 領受聖體的意義</li><li>教會給感恩祭的定位，一句話：它是「整個基督徒生活的泉源與高峰」（CCC 1324）。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>2 / 27</span></div><aside class="notes">講解：今天走一條線：天主怎樣餵養祂的子民——從逾越節羔羊，經過最後晚餐，到主日的祭台。</aside></section>
-<section class="slide "><div class="kicker">舊約</div><h1>天主立盟約——用一頓飯作印記</h1><ul><li>整部舊約，天主不斷與人立盟約：亞巴郎（創12、15）、梅瑟（出19–24）。</li><li>每個盟約形狀都一樣：天主召叫 → 許下承諾 → 人答應 → 以祭獻作印記。</li><li>印記幾乎都是一頓共餐——一起吃飯，成為一家人。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>3 / 27</span></div><aside class="notes">講解：天主不只給誡命，祂建立一個家庭；家庭是一起吃飯的。今天就跟著這條「盟約之餐」的線走。</aside></section>
-<section class="slide dark"><div class="kicker">舊約</div><div class="artrow"><div class="artimg"><img class="zoomable" src="rubens-melchizedek.jpg" data-cap="魯本斯《亞巴郎與麥基洗德相遇》"></div><div class="artcap"><h3>魯本斯《亞巴郎與麥基洗德相遇》</h3><p>麥基洗德獻上餅和酒（創14）——聖體聖事的預像</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>4 / 27</span></div><aside class="notes">講解：麥基洗德是至高天主的司祭，他獻上的餅和酒，教會從起初就認出是聖體的預像。</aside></section>
-<section class="slide "><div class="kicker">舊約</div><h1>逾越節：出谷紀第十二章</h1><ul><li><b>羔羊：</b>一歲、雄性、無殘疾</li><li><b>血：</b>塗在門框和門楣上</li><li><b>吃：</b>烤著吃，配無酵餅和苦菜——束腰、穿鞋、手持棍杖，急速吃</li></ul><blockquote>我打擊埃及國的時候，一見這血，就越過你們去……這一天將是你們的紀念日，要當作上主的節日來慶祝；你們要世世代代過這節日，作為永遠的法規。</blockquote><cite>——出 12:13–14</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>5 / 27</span></div><aside class="notes">講解：天主親自規定每個細節：無殘疾的羔羊——完美；血——得救的記號；無酵餅——匆忙、除舊；苦菜——為奴之苦。得救靠的是血，不是人的好。教理說：按照聖經的意義，「紀念」不但意指回憶往事，「在舉行這些事件的禮儀時，這些事件透過某種方式而得以臨在和實現」（CCC 1363）——不是懷舊，是讓天主的救援臨於每一代。</aside></section>
-<section class="slide "><div class="kicker">新約</div><h1>最後晚餐：建立聖事</h1><ul><li>「你願我們在哪裡，給你預備吃逾越節晚餐？」——門徒去預備了。</li><li>在逾越節晚餐中，新的事發生了：拿餅、祝福、擘開——還有杯。</li><li>「新約的血」呼應出24:8梅瑟灑血立約——西乃山的形狀重現，這次以祂自己的血作印記。</li></ul><blockquote>他們正吃晚餐的時候，耶穌拿起餅來，祝福了，擘開遞給門徒說：「你們拿去吃罷！這是我的身體。」然後，又拿起杯來，祝謝了，遞給他們說：「你們都由其中喝罷！因為這是我的血，新約的血，為大眾傾流，以赦免罪過。我告訴你們：從今以後，我不再喝這葡萄汁了，直到在我父的國裏那一天，與你們同喝新酒。」</blockquote><cite>——瑪 26:26–29</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>6 / 27</span></div><aside class="notes">講解：關鍵：耶穌沒有廢除逾越節，祂慶祝它，並在其中建立新的禮——「我渴望而又渴望，在我受難以前，同你們吃這一次逾越節晚餐」（路22:15）。路加記下：「這是我的身體，為你們而捨棄的。你們應行此禮，為紀念我。」「這杯是用我為你們流出的血而立的新約」（路22:19-20）。新約中重複最多的話。「紀念」就是逾越節的紀念——禮儀使祭獻臨在，不只是回想；「基督在十字架上一次而永遠完成的祭獻萬古常新」（CCC 1364）。保祿說：「你們每次吃這餅，喝這杯，你們就是宣告主的死亡」（格前11:26）。29節指向天國的婚宴：聖體是未來的預嘗。</aside></section>
-<section class="slide dark"><div class="kicker">新約</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="tintoretto-last-supper.jpg" data-cap="丁托列托《最後晚餐》(1594)"></div><div class="artcap"><h3>丁托列托《最後晚餐》(1594)</h3><p>基督在畫面中央分餅，光照全場</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>7 / 27</span></div><aside class="notes">講解：關鍵：耶穌沒有廢除逾越節，祂慶祝它，並在其中建立新的禮。</aside></section>
-<section class="slide dbl"><div class="kicker">聖經</div><h1>「我的肉是真實的食品」</h1><blockquote>「我實實在在告訴你們：你們若不吃人子的肉，不喝他的血，在你們內，便沒有生命。誰吃我的肉，並喝我的血，必得永生，在末日，我且要叫他復活，因為我的肉，是真實的食品；我的血，是真實的飲料。誰吃我的肉，並喝我的血，便住在我內，我也住在他內。」</blockquote><cite>——若 6:53–56</cite><blockquote>「從此，他的門徒中有許多人退去了……『主！惟你有永生的話，我們去投奔誰呢？我們相信，而且已知道你是天主的聖者。』」</blockquote><cite>——若 6:66–69</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>8 / 27</span></div><aside class="notes">講解：先聽祂前面的話：「我就是生命的食糧；到我這裏來的，永不會饑餓；信從我的，總不會渴」（若6:35）。對比瑪納：祖先在曠野吃了瑪納仍然死了，「誰吃這食糧，必要生活直到永遠」（若6:58）——預像雖美，仍指向真正的食糧。這是福音中唯一一次，耶穌因一條教導失去跟隨者，卻不追回去解釋「我是比喻」。祂是認真的。伯多祿的回答就是教會至今的回答：即使難懂，我們留下。</aside></section>
-<section class="slide "><div class="kicker">聖經</div><h1>厄瑪烏：在餐桌上被認出</h1><ul><li>路上祂講解聖經——「我們的心不是火熱的嗎？」</li><li>「當耶穌與他們坐下吃飯的時候，就拿起餅來，祝福了，擘開，遞給他們。他們的眼睛開了，這纔認出耶穌來。」——路24:30–31</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>9 / 27</span></div><aside class="notes">講解：聖經預備心，聖事賜下相遇。心在聽道時火熱，眼睛卻在擘餅時開。記住這個形狀——就是每台彌撒的形狀。</aside></section>
-<section class="slide dark"><div class="kicker">聖經</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="rembrandt-emmaus.jpg" data-cap="林布蘭《厄瑪烏的晚餐》(1648)"></div><div class="artcap"><h3>林布蘭《厄瑪烏的晚餐》(1648)</h3><p>燭光下耶穌擘餅，門徒驚悟</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>10 / 27</span></div><aside class="notes">講解：聖經預備心，聖事賜下相遇。心在聽道時火熱，眼睛卻在擘餅時開。</aside></section>
-<section class="slide dark"><div class="kicker">聖經</div><h1>厄瑪烏</h1><div class="vidwrap"><video src="emmaus-combined.mp4" poster="emmaus-poster.jpg" controls preload="metadata"></video><div class="vidcap">23秒：林布蘭畫作開場 → 路上同行（路24:32）→ 擘餅認出（路24:30–31）</div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>11 / 27</span></div><aside class="notes">講解：播放影片。聖經預備心，聖事賜下相遇——這就是每台彌撒的形狀。</aside></section>
-<section class="slide "><div class="kicker">聖經</div><h1>初期教會：「擘餅」</h1><ul><li>「他們專心聽取宗徒的訓誨，時常團聚，擘餅，祈禱。」——宗2:42</li><li>「每天都成群結隊地前往聖殿，也挨戶擘餅，懷著歡樂和誠實的心一起進食。」——宗2:46</li><li>「上主天天使那些得救的人加入會眾。」——宗2:47</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>12 / 27</span></div><aside class="notes">講解：聖體聖事不是後來的發明，是教會的第一口呼吸。注意次序：先有擘餅，才有「上主使人加入」。感恩祭塑造教會（CCC 1396），教會才去傳教。</aside></section>
-<section class="slide "><div class="kicker">初期教會</div><h1>初期基督徒相信什麼</h1><ul><li>《十二宗徒遺訓》（一／二世紀）：「在主日聚會，擘餅、獻感恩祭……」</li><li>安提約基雅的聖依納爵（†107）：聖體是「不朽之藥」，「使我們脫免死亡，在耶穌基督內永生」。</li><li>殉道者聖猶思定（約155年）向外教皇帝描述的主日聚會：讀經、講道、祈禱、餅酒、眾人應「阿們」、分送——並由執事送給缺席者。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>13 / 27</span></div><aside class="notes">講解：都在宗徒去世一代人之內。猶思定向外教皇帝描述的程序，我們都認得。要理說：這基本輪廓「直到今天，仍完好地為各大禮儀族群所保存」（CCC 1345）。保祿說：「這是我從主所領受的，我也傳授給你們了」（格前11:23）——從主，經宗徒，傳到我們。</aside></section>
-<section class="slide "><div class="kicker">彌撒</div><h1>今天的彌撒：同一筵席，一個敬禮</h1><ul><li>感恩祭禮儀有兩大部分，形成一個整體（CCC 1346）：</li><li><b>聖道禮儀</b>——天主聖言的筵席</li><li><b>聖祭禮儀</b>——主基督身體的筵席</li></ul><blockquote>教會常常尊敬聖經，如同尊敬主的聖體一樣，因為特別在聖禮儀中，教會不停地從天主聖言的筵席，及從基督聖體的筵席，取用生命之糧，而供給信友們。</blockquote><cite>——梵二《天主的啟示》憲章21號</cite><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>14 / 27</span></div><aside class="notes">講解：回答「彌撒為什麼長這樣」——因為厄瑪烏長這樣。同一筵席，一個敬禮。教理說：「在感恩祭裏，為我們擺設的筵席，既是天主聖言的筵席，也是主的身體的筵席」（CCC 1346）。正是厄瑪烏的形狀：路上講解聖經，同席時「拿起餅來，祝謝了，擘開，遞給他們」（參 CCC 1347）。教理把兩面扣在一起：「彌撒是祭獻性的紀念，同時也是領受主的體血的神聖宴會，兩者是不可分的」（CCC 1382）。</aside></section>
-<section class="slide "><div class="kicker">彌撒</div><h1>彌撒程序</h1><ul><li><b>1. 進堂禮</b>——集合：問候、懺悔禮、光榮頌，成為一個團體</li><li><b>2. 聖道禮儀</b>——讀經、聖詠、福音、講道、信經、信友禱文；天主說話，我們回應</li><li><b>3. 聖祭禮儀</b>——奉獻餅酒、感恩經與祝聖、天主經、羔羊頌、領聖體；天上觸及人間</li><li><b>4. 禮成禮</b>——降福與遣散：「彌撒禮成，你們去吧。」被派遣</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>15 / 27</span></div><aside class="notes">講解：慢慢走——多數慕道者望過彌撒，卻沒人為他們講解過。落在關鍵：感恩經之前都是預備，之後都是感恩與使命。遣散不是結束，是派遣。</aside></section>
-<section class="slide dark"><div class="kicker">彌撒</div><div class="artrow"><div class="artimg"><img class="zoomable" src="guido-matthew.jpg" data-cap="圭多・雷尼《聖瑪竇與天使》"></div><div class="artcap"><h3>圭多・雷尼《聖瑪竇與天使》</h3><p>天使引著聖史的手寫福音——天主說話的樣子</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>16 / 27</span></div><aside class="notes">講解：聖道禮儀：讀經、聖詠、福音、講道——天主說話，我們回應。</aside></section>
-<section class="slide dark"><div class="kicker">彌撒</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="triumph-of-st-ignatius.jpg" data-cap="波佐《聖依納爵的勝利》（羅馬聖依納爵堂穹頂，1694）"></div><div class="artcap"><h3>波佐《聖依納爵的勝利》（羅馬聖依納爵堂穹頂，1694）</h3><p>抬頭仰望：基督在光中，天使聖人層層環繞——正是感恩經中高唱「聖、聖、聖」時，天上人間一同歡呼的樣子</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>17 / 27</span></div><aside class="notes">講解：聖祭禮儀：每台彌撒的感恩經，我們都與天使、聖人一同高唱「聖、聖、聖」——天上觸及人間。教理說：「整個團體連同天上的教會、天使和全體聖人，不停地讚頌天主，向祂高唱「聖、聖、聖」」（CCC 1352）。波佐的穹頂畫的就是這一刻。</aside></section>
-<section class="slide dark"><div class="kicker">彌撒</div><div class="artrow"><div class="artimg"><img class="zoomable" src="eyck-mystic-lamb.jpg" data-cap="揚・范艾克《神祕羔羊的欽崇》（根特祭壇畫，1432）"></div><div class="artcap"><h3>揚・范艾克《神祕羔羊的欽崇》（根特祭壇畫，1432）</h3><p>祭台上的羔羊，血流入聖爵，聖人環繞欽崇——「天主的羔羊」</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>18 / 27</span></div><aside class="notes">講解：羔羊頌：「除免世罪的天主羔羊，求祢垂憐我們。」——逾越節的羔羊，如今在祭台上。</aside></section>
-<section class="slide "><div class="kicker">教會的教導</div><h1>基督真實臨在</h1><ul><li>祝聖之後，餅酒真正成為耶穌——祂的體和血。</li><li>不是象徵，不是紀念：是真真實實的祂。</li><li>教會稱這轉變為「實體轉變」（CCC 1376）：餅酒的外形仍在，但其實體已成為基督。</li><li>「藉著餅與酒的被祝聖，餅的整個實體，被轉變成為我主基督身體的實體；酒的整個實體，被轉變成為祂寶血的實體。」——CCC 1376</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>19 / 27</span></div><aside class="notes">講解：簡單而肯定：因為祂說「這是我的身體」，教會從一開始就相信。一個專有名詞，一句白話解釋——這個階段夠了。</aside></section>
-<section class="slide "><div class="kicker">教會的教導</div><h1>領聖體在我們內做什麼</h1><ul><li>加深與基督的結合。</li><li>赦免小罪，堅固我們抵擋將來的大罪。</li><li>使我們成為一個身體——「感恩祭塑造教會」（CCC 1396）。</li><li>派遣我們走向窮人。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>20 / 27</span></div><aside class="notes">講解：聖體是食糧：滋養、醫治、結合。兩句要落地：它是罪人的良藥，不是完人的獎品——但正因它是基督，要求我們預備好自己。</aside></section>
-<section class="slide "><div class="kicker">活出來</div><h1>預備領受</h1><ul><li>「所以人應省察自己，然後纔可以吃這餅，喝這杯。」——格前11:28</li><li>自覺有大罪：先辦告解。</li><li>守聖體齋（一小時）。</li><li>以迎接貴賓的心來——「因為此刻基督要成為我們的貴賓」（CCC 1387）。</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>21 / 27</span></div><aside class="notes">講解：三個具體習慣：省察良心（週六晚上正是時候）、大罪先告解、守齋。保祿說得重：「無論誰，若不相稱地吃主的餅，或喝主的杯，就是干犯主體和主血的罪人……那吃喝的人，若不分辨主的身體，就是吃喝自己的罪案」（格前11:27、29）。說得溫暖：預備不是門檻，是迎接所愛之人的方式。對慕道班的學員：暫時還不能領聖體——這不是拒絕，而是保護；等到入門聖事完成的那一天，第一次領受的將是一顆準備好的心。</aside></section>
-<section class="slide dark"><div class="kicker">活出來</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="rembrandt-prodigal-son.jpg" data-cap="林布蘭《浪子回頭》(1669)"></div><div class="artcap"><h3>林布蘭《浪子回頭》(1669)</h3><p>父親擁抱跪著的兒子——告解就是回家</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>22 / 27</span></div><aside class="notes">講解：預備不是門檻，是迎接所愛之人的方式——告解就是回家。</aside></section>
-<section class="slide "><div class="kicker">活出來</div><h1>從聖體生活</h1><ul><li>五個習慣，一週的節奏：</li><li><b>1. 好好預備</b>領聖體</li><li><b>2. 探訪</b>明供的聖體</li><li><b>3. 朝拜聖體</b></li><li><b>4. 定期告解</b></li><li><b>5. 讀聖人的傳記</b>——那些深愛聖體的人</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>23 / 27</span></div><aside class="notes">講解：具體化：說出本堂朝拜聖體的時間。建議本週一次十五分鐘的探訪。可以提的聖人：聖女大德蘭、聖維雅納、聖小德蘭、真福卡洛・阿庫蒂斯——「聖體聖事是我通往天堂的高速公路」。</aside></section>
-<section class="slide dark"><div class="kicker">活出來</div><div class="artrow"><div class="artimg"><img class="zoomable" src="monaco-magi.jpg" data-cap="洛倫佐・摩納哥《三王來朝》(1420)"></div><div class="artcap"><h3>洛倫佐・摩納哥《三王來朝》(1420)</h3><p>賢士俯伏朝拜聖嬰——朝拜的樣子</p></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>24 / 27</span></div><aside class="notes">講解：朝拜聖體：賢士走了遠路，只為俯伏朝拜。這週，找十五分鐘，去探訪祂。</aside></section>
-<section class="slide dark"><div class="kicker">帶回家</div><div class="takehome"><h1>帶回家的三句話</h1><div class="item"><div class="num">一</div><div class="txt">聖體聖事是基督寶血所立的新約——逾越節的成全，不是一個象徵。</div></div><div class="item"><div class="num">二</div><div class="txt">教會從宗徒時代就這樣慶祝——主日復主日，不朽之藥。</div></div><div class="item"><div class="num">三</div><div class="txt">基督成為你的貴賓——預備好自己，讓祂使你與祂合而為一。</div></div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>25 / 27</span></div><aside class="notes">講解：慢慢說，說兩遍也可以。這是給停車場的三句話——請大家寫下一句。</aside></section>
-<section class="slide "><div class="kicker">反省</div><h1>反省</h1><ul><li>「感恩祭塑造教會」（CCC 1396）——這週我該怎樣對待身邊的人？</li><li>聖保祿說「人應省察自己」（格前11:28）——我的週六晚上可以怎樣省察？</li><li>這週，哪裡可以安插一次短短的聖體探訪？</li></ul><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>26 / 27</span></div><aside class="notes">講解：讀出來，靜默兩分鐘——或分組分享。分享要短，最後帶回基督的臨在。</aside></section>
-<section class="slide dark"><div class="closing"><blockquote>「因為餅只是一個，我們雖多，只是一個身體，因為我們眾人都共享這一個餅。」</blockquote><div class="src">——格前 10:17</div><div class="thanks">謝謝大家</div><div class="srcline">資料：思高聖經・《天主教要理》</div></div><div class="foot"><span>感恩祭（彌撒）・聖心堂慕道班</span><span>27 / 27</span></div><aside class="notes">講解：以祈禱結束：「主耶穌，你說你是生命的食糧。求你開啟我們的心，認識你在感恩祭中的臨在；也預備我們的心，有一天能相稱地領受你，與你合一。阿們。」</aside></section>
+
+<section class="slide dark"><div class="cover"><div class="ctext"><div class="kicker">天主教達拉斯耶穌聖心堂・慕道班</div><h1>感恩祭（彌撒）</h1><div class="sub">從「派遣」（Missa）到「感恩」的慶典</div><div class="date">聖心堂慕道班</div></div><div class="cimg"><img class="zoomable" src="img/cover-chalice.jpg" data-cap="祭台上的聖爵、聖經與聖體盒"></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>1 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">前言</div><h1>感恩祭－前言</h1><div class="cols"><div class="col"><ul><li>彌撒一詞是拉丁文 "Missa" 的國語譯音，"Missa" 本身有<b>遣散、派遣</b>的意思。</li><li>近來多用「感恩祭」一詞，因為從禮儀的內容來看，「感恩祭」更能表達出彌撒的核心精神。</li></ul><div class="grp">感恩祭的三個重點</div><ul><li>感恩祭是紀念基督在十字架上的犧牲</li><li>耶穌真正臨在於感恩祭中</li><li>感恩祭是與主基督的聖神共融</li></ul></div><div class="col"><blockquote>「從第二世紀起，我們已有殉道者聖猶思定的見証，他描述了感恩祭程序的基本輪廓。直到今天，這輪廓仍完好地為各大禮儀族群所保存。」</blockquote><cite>——天主教教理 1345</cite><blockquote>「所有信友聚集一起。基督徒來到同一地方舉行感恩聚會。此聚會之領導者是基督自己，祂是感恩祭的主要執行者。祂是新約的大司祭，是祂親自以不可見的方式主持整個感恩慶典。主教或司鐸則是以基督元首之名代表祂主持聚會，在宣讀聖經後講道，接受獻禮並以感恩經祈禱。所有的人在慶典中，都各按其分，主動參與：宣讀聖經、呈獻禮品、送聖體聖血，全體會眾則以『阿們』顯示他們的參與。」</blockquote><cite>——天主教教理 1346・1348</cite></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>2 / 26</span></div></section>
+
+<section class="slide dark"><div class="kicker">名畫</div><div class="artrow"><div class="artimg"><img class="zoomable" src="img/tintoretto-last-supper.jpg" data-cap="丁托列托《最後晚餐》(1592–94)・威尼斯聖喬治馬焦雷堂"></div><div class="artcap"><h3>丁托列托《最後晚餐》(1592–94)</h3><p>威尼斯聖喬治馬焦雷堂——基督在畫面中央分餅，光照全場</p></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>3 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">早期教會</div><h1>聖體聖事的重要早期教會文獻</h1><ul><li><b>《十二宗徒訓誨錄》</b>（Didache）第9–10章及第14章（約公元一世紀末或二世紀初）：記載了對餅和杯的感恩禱文，以及基督徒舉行聖體聚會的指示。這些章節是早期聖體信仰的重要見證。</li><li><b>安提約基雅的聖依納爵</b>：《致士每拿人書》第7章（約公元二世紀初）：談到聖體與基督真實的肉身有關，並把聖體共融與教會合一聯繫起來。</li><li><b>殉道者聖猶思定</b>：《第一護教辭》第65–67章（約公元二世紀中葉）：描述基督徒入門禮儀和主日聚會。第66章指出，基督徒領受聖體時，並不把它當作普通的餅和飲料，而是領受耶穌降生成人的肉身和血。</li><li><b>里昂的聖依勒內（愛任紐）</b>：《駁異端》第四卷第17–18章（約公元二世紀末）：把聖體與基督的身體和血、受造界的美善，以及肉身復活的盼望聯繫起來。</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>4 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">彌撒的結構</div><h1>感恩祭－結構</h1><div class="lead">感恩（聖體）聖事包括四個部分：</div><ul><li><b>進堂式</b>——進堂式就是幫助信友收斂心神、凝聚團體。信友在懺悔禮中，淨化心靈；主禮亦於開始祈禱時，揭示慶典的主題。</li><li><b>聖道禮儀</b>——在聖道禮中，教會既宣讀天主聖言，也一起聆聽天主聖言。天主親自說話，向人宣布祂與人交往、施恩的故事，這些全部已紀錄在舊約及新約中，而且這些救恩故事的喜訊不斷延續及實現出來。</li><li><b>聖祭禮儀</b>——聖祭禮是基督獨一無二的祭獻。首先是預備祭品及奉獻餅酒的行動，除了餅酒外，信友的生活奉獻（如工作成果、生活辛勞、痛苦、成敗），也與基督一起奉獻作祭品。</li><li><b>禮成式</b>——主禮以天主聖三的名義，降福眾人，宣布「彌撒禮成」。這「禮成」是我們為信仰生活作見證的開始，它意味着我們重回到日常生活裏，要將所聆聽的天主聖言、所領受的基督神糧恩寵，發顯於生活中。直到下次來參與感恩祭時，便一同將自己的辛勞奉獻給天父。如此看來，這是循環不息的周期，感恩祭和我們的生活有着互動的密切關係。</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>5 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">進堂式</div><h1>感恩祭－進堂式</h1><div class="lead">進堂式就是幫助信友收斂心神、凝聚團體。信友在懺悔禮中，淨化心靈；主禮亦於開始祈禱時，揭示慶典的主題。</div><ul><li><b>進堂詠</b>：感恩祭是慶典，一同詠唱加強團體意識及隆重性，信友眾口同心讚美上主</li><li><b>劃十字聖號</b>：懇求天主的神聖臨在</li><li><b>主禮致候</b>：指出天主現在親自臨在團體中</li><li><b>懺悔禮及垂憐經</b>：誠心懺悔，並請求團體一起代禱，彼此求恕</li><li><b>光榮頌</b>：我們快樂地讚頌天主，因為祂是愛我們的父親，也因為祂為我們所作的一切感謝祂</li><li><b>集禱經</b>：集合眾人的祈禱，並點出今天慶典的意義</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>6 / 26</span></div></section>
+
+<section class="slide dark"><div class="kicker">進堂式・名畫</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="img/donatello-magdalene.jpg" data-cap="多那太羅《懺悔的抹大拉》（約1455）"></div><div class="artcap"><h3>多那太羅《懺悔的抹大拉》（約1455）</h3><p>木雕——罪人的痛悔；呼應進堂式的懺悔禮</p></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>7 / 26</span></div></section>
+
+<section class="slide dark"><div class="kicker">進堂式・名畫</div><div class="artrow"><div class="artimg"><img class="zoomable" src="img/rembrandt-prodigal-son.jpg" data-cap="林布蘭《浪子回頭》（約1668）"></div><div class="artcap"><h3>林布蘭《浪子回頭》（約1668）</h3><p>父親擁抱跪著的兒子——懺悔就是回家</p></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>8 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">聖道禮儀</div><h1>感恩祭－聖道禮儀的聖經選讀</h1><ul><li>主日感恩祭共有三篇讀經（平日感恩祭則選兩篇）。第一篇大多是取自舊約（或宗徒大事錄），第二篇取自新約中的宗徒書信或默示錄；第三篇是福音。</li><li>教會選定三篇讀經的內容：舊約選經與福音是彼此相應、有連貫性，以表達出舊約是天主救恩的準備，宗徒大事錄及書信是聖神帶領下宗徒的見證，而福音是來自四部福音，是救恩的實現。</li><li>宣讀福音就是宣布聖子降生成人，來到我們當中，為我們死而復活，是天主救世工程的實現。</li><li>教會就主日讀經，安排了三年的循環周期，分別選自聖經不同部分：舊約、聖詠集、新約和福音。以三年為週期，即每三年的讀經會重覆一次。平日的感恩祭（每日讀經）則是兩年的循環周期。因着這樣的編排，信友能讀到最重要的救恩歷史，並且在教會內不斷宣講及聆聽這救恩的喜訊。</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>9 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">聖道禮儀</div><h1>感恩祭－聖道禮儀</h1><div class="cols"><div class="col"><div class="lead" style="font-size:19px;margin-bottom:14px">從禮儀程序來看，聖道禮儀採用的是一個天主與人對話的形式。從禮儀的結構要素而言，聖道禮儀反映出救恩計畫的歷程：從舊約時代、新約時代、宗徒時代、到教會時代。</div><ul><li><b>讀經一</b>：多選自舊約，預示天主的恩許</li><li><b>答唱詠</b>：選自聖詠，是對聖言聆聽後的答覆與回應</li><li><b>讀經二</b>：多選自宗徒書信，講述宗徒的作證、救恩的延續，〈宗徒大事錄〉和〈默示錄〉</li><li><b>福音前歡呼</b>：迎接基督的行動</li><li><b>福音</b>：基督自己向我們說話</li><li><b>講道</b>：解說聖言及慶典的意義，與今天生活的關係</li><li><b>信經</b>：重申宣信整個教會的主要信仰</li><li><b>信友禱詞</b>：回應天主的話，為教會、世界及有需要的人祈禱，表達教會的普世性</li></ul></div><div class="col imgcol"><img class="zoomable" src="img/synagogue-teaching.jpg" data-cap="耶穌在會堂宣講——聖道禮儀：天主說話，人回應"></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>10 / 26</span></div></section>
+
+<section class="slide dark"><div class="kicker">聖道禮儀・名畫</div><div class="artrow flip"><div class="artimg"><img class="zoomable" src="img/guido-matthew.jpg" data-cap="圭多・雷尼《聖瑪竇與天使》"></div><div class="artcap"><h3>圭多・雷尼《聖瑪竇與天使》</h3><p>天使引著聖史的手寫福音——天主說話的樣子</p></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>11 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">聖道禮儀</div><h1>今天的主日讀經</h1><div class="lead muted">（此頁預留：放映當日的主日讀經）</div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>12 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">聖道禮儀</div><h1>信仰宣誓（信經）</h1><blockquote>我信唯一的天主……</blockquote><cite>——信經</cite><div class="lead" style="margin-top:26px">參禮會眾於讀經及闡釋聖經的講道中，聆聽天主的聖言後，一起以「信經」或「宣信」作出回應。透過這准用的禮儀經文來宣明信德的規範，是為了在感恩禮中慶祝此偉大的信德奧蹟之前，先予以重溫並宣認。</div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>13 / 26</span></div></section>
+
+<section class="slide dark"><div class="kicker">聖經</div><h1>厄瑪烏</h1><div class="vidwrap" style="margin-bottom:30px"><video src="img/emmaus-combined.mp4" poster="img/emmaus-poster.jpg" controls preload="metadata" style="max-height:464px"></video><div class="vidcap">23秒：林布蘭畫作開場 → 路上同行（路24:32）→ 擘餅認出（路24:30–31）</div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>14 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">聖祭禮儀</div><h1>感恩祭－聖祭禮儀（一）</h1><div class="cols"><div class="col"><div class="grp">呈獻禮品及預備祭台</div><ul><li>將餅酒當成禮品呈獻給主祭（收集彌撒獻儀，支持教會的需要）</li><li><b>獻禮經</b>：求天主接納禮品，並總結獻禮的意向</li></ul><div class="grp">感恩經</div><ul><li><b>頌謝詞</b>：宣示對主的感恩謝意</li><li><b>歡呼歌</b>：聖、聖、聖⋯⋯與天上神聖和宇宙萬有一起讚美天主</li><li><b>呼求聖神</b>：求聖神祝聖禮品</li><li><b>建立聖體聖血的敘述</b>：懷着感恩之心，追憶基督的大愛</li><li><b>紀念</b>：奉耶穌的命令，紀念祂為人犧牲、死而復活的奧蹟</li><li><b>奉獻</b>：把祭品獻給天父，並自我犧牲</li><li><b>紀念諸聖及求恩</b>：深信諸聖共融相通，並為教會及生者、死者祈求</li><li><b>聖三頌</b>：感恩祭是經由基督，在聖神內，歸向天主聖父</li></ul></div><div class="col imgcol"><img class="zoomable" src="img/altar-trinity.jpg" data-cap="祭台上的感恩祭——基督十字架祭獻的臨現"></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>15 / 26</span></div></section>
+
+<section class="slide dark"><div class="kicker">聖祭禮儀・名畫</div><div class="artrow"><div class="artimg"><img class="zoomable" src="img/triumph-st-ignatius.jpg" data-cap="波佐《聖依納爵的勝利》（羅馬聖依納爵堂穹頂，1694）"></div><div class="artcap"><h3>波佐《聖依納爵的勝利》（羅馬聖依納爵堂穹頂，1694）</h3><p>抬頭仰望：基督在光中，天使聖人層層環繞——正是感恩經中高唱「聖、聖、聖」時，天上人間一同歡呼的樣子</p></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>16 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">聖祭禮儀</div><h1>路加福音 22</h1><blockquote>13 他們去了，所遇見的，正如耶穌對他們所說的一樣；他們便預備了逾越節晚餐。14 到了時候，耶穌就入席，宗徒也同他一起。15 耶穌對他們說：「我渴望而又渴望，在我受難以前，同你們吃這一次逾越節晚餐。16 我告訴你們：非等到它在天主的國裡成全了，我決不再吃它。」17 耶穌接過杯來，祝謝了說：「你們把這杯拿去，彼此分著喝罷！18 我告訴你們：從今以後，非等到天主的國來臨了，我決不再喝這葡萄汁了。」</blockquote><cite>——路 22:13–18</cite><blockquote class="em">19 耶穌拿起餅來，祝謝了，擘開，遞給他們說：「這是我的身體，為你們而捨棄的。你們應行此禮，為紀念我。」20 晚餐以後，耶穌同樣拿起杯來，說：「這杯是用我為你們流出的血而立的新約。」</blockquote><cite>——路 22:19–20</cite><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>17 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">聖祭禮儀</div><h1>感恩祭－聖祭禮儀（二）</h1><div class="cols"><div class="col"><div class="grp">呈獻領聖體禮／共融禮</div><ul><li><b>天主經</b>：是天父兒女的祈禱，強調天父與其子民的親密關係</li><li><b>平安禮</b>：在基督內互祝平安，表示修和、相親相愛和共融</li><li><b>羔羊頌</b>：逾越節羔羊是基督，已戰勝死亡</li><li><b>主祭領聖體、聖血，信眾領聖體（聖血）</b>：因着與主共融，而人與人和萬有也共融，在主內結為一體。（靜默祈禱、感恩、求恩）</li><li><b>領聖體後經</b>：祈求由所舉行的奧蹟得到實效，並結束整個共融禮</li></ul></div><div class="col imgcol"><img class="zoomable" src="img/communion-chalice.jpg" data-cap="領聖體——共融禮"></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>18 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">聖經</div><h1>聖體——「我的肉是真實的食品」</h1><blockquote>「我實實在在告訴你們：你們若不吃人子的肉，不喝他的血，在你們內，便沒有生命。誰吃我的肉，並喝我的血，必得永生，在末日，我且要叫他復活，因為我的肉，是真實的食品；我的血，是真實的飲料。誰吃我的肉，並喝我的血，便住在我內，我也住在他內。」</blockquote><cite>——若 6:53–56</cite><blockquote>「從此，他的門徒中有許多人退去了……『主！惟你有永生的話，我們去投奔誰呢？我們相信，而且已知道你是天主的聖者。』」</blockquote><cite>——若 6:66–69</cite><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>19 / 26</span></div></section>
+
+<section class="slide"><div class="kicker">教會的教導</div><h1>基督真實臨在</h1><ul><li>祝聖之後，餅酒真正成為耶穌——祂的體和血。</li><li>不是象徵，不是紀念：是真真實實的祂。</li><li>教會稱這轉變為「實體轉變」（CCC 1376）：餅酒的外形仍在，但其實體已成為基督。</li></ul><blockquote>「藉著餅與酒的被祝聖，餅的整個實體，被轉變成為我主基督身體的實體；酒的整個實體，被轉變成為祂寶血的實體。」</blockquote><cite>——天主教教理 1376</cite><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>20 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">生活實踐</div><h1>領聖體</h1><ul><li>信友列隊前往領聖體時，應保持專心，不要與周圍的人打招呼。</li><li>恭領聖體時，一般是採站立的姿勢。</li><li>領聖體時，分送聖體者舉起聖體時宣告「基督聖體。」領受者回答：「阿們。」如果聽不到「基督聖體」的宣告，我們自己心中可以默念「基督聖體」然後領下，不必回應「阿們。」。</li><li>手領聖體時，雙手交疊。一般是左手在上，右手在下（不是併排）。分送聖體者將聖體放在領受者的左手心上，領受者用右手拿起後立刻領下，或稍移至祭台旁恭領。</li><li>如果因故不能領聖體，信友應該靜坐在自己的位置上。不宜以雙手環抱在胸前，排隊前往請求神父降福，因為這不是降福的時間。</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>21 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">禮成式</div><h1>感恩祭－禮成式</h1><div class="cols"><div class="col"><div class="grp">降福信眾</div><ul><li>主祭代表將要升天的基督，「舉手降福」會眾，向信友畫十字，賦予我們福傳的使命，要我們將十字架之光，帶到人群中。</li></ul><div class="grp">派遣</div><ul><li>接受聖三派遣，好使他們能在日常生活裡實踐天主的旨意。</li></ul><div class="grp">出堂</div><ul><li>彌撒開始時，主禮口親祭台，同時兩手扶於祭台上，表示與主基督擁抱，因為祭台象徵基督。彌撒結束，主禮也以同樣動作先向祭台致敬，然後輔禮人員、執事及主祭依次退席。</li></ul></div><div class="col imgcol"><img class="zoomable" src="img/papal-blessing.jpg" data-cap="降福——禮成派遣"></div></div><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>22 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">總結</div><h1>感恩祭－總結</h1><ul><li>教會藉著感恩祭，紀念和慶祝基督死而復活所完成的救贖工作</li><li>感恩祭也是信友們在基督內參與祭獻和宴會</li><li>一方面是基督親自通過司鐸的職務，祝聖了的餅酒成為自己的體血，與信友一起向天父獻上感恩和讚頌的祭獻，為賜給信友救贖的恩寵</li><li>另一方面，信友們領受了臨在於聖言和聖事的基督，也獲得生命之糧，在這共融的宴會中，與天主和整個教會緊密結合</li><li>我們要以信德和虔敬的心參與感恩祭，以聖事的恩寵活出基督的教導，並以愛和共融彼此相待，藉著基督，在聖神內，歸向天父。</li></ul><div class="grp">感恩祭的三個重點</div><ul><li>感恩祭是紀念基督在十字架上的犧牲</li><li>耶穌真正臨在於感恩祭中</li><li>感恩祭是與主基督的聖神共融</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>23 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">生活實踐</div><h1>參與彌撒的建議</h1><ul><li>參與彌撒前，進入聖堂儘量保持靜默，好能妥善預備心靈，虔誠並合宜地參與彌撒聖祭。</li><li>在參與彌撒聖祭時，全程保持莊重，不採輕鬆翹腳姿勢。</li><li>書籤是用來標識書本中的特定頁面，以方便返回參考閱讀。在彌撒前，先把經本中的線質書籤分別放在：<ul class="sub"><li>當日的集禱經、獻禮經及領聖體後經的頁面。</li><li>有信友參與的彌撒規程的頁面。</li><li>當日聖經選讀的頁面。</li></ul></li></ul><div class="grp">平安禮</div><ul><li>平安禮不是社交問候，不可以離開座位去向親朋好友打招呼。</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>24 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">教會的規條</div><h1>教會的規條</h1><ul><li><b>第一規條</b>（「主日及當守的法定慶節應參與彌撒」）要求信徒參與慶祝紀念主復活的日子，以及敬禮主的奧蹟、榮福童貞瑪利亞，和諸聖人的主要禮儀慶節；首先，要參與基督徒團體團聚一起的感恩慶典，並且要停止一切阻礙聖化這些日子的工作和操勞，從而得到休息。</li><li><b>第二規條</b>（「應至少每年一次告明你的罪」）藉著領受和好聖事，繼續聖洗聖事的皈依和赦免的工程，為領受聖體妥作準備。</li><li><b>第三規條</b>（「至少應在逾越慶節時領受感恩（聖體）聖事」）保證最低限度的領受主的聖體聖血，要在逾越節期中領受，這是基督徒禮儀的原始和中心。</li><li><b>第四規條</b>（「應在法定日子上遵守大齋和小齋」），……獲得控制本能的力量和心靈的自由。</li><li><b>第五規條</b>（「應支援教會的需要」），意指信徒尚有義務，各盡自己的能力，支援教會物質的需要。</li></ul><cite>——天主教教理 2042–2043</cite><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>25 / 26</span></div></section>
+
+<section class="slide dbl"><div class="kicker">附錄</div><h1>禮儀年</h1><div class="lead" style="font-size:19px;margin-bottom:14px">天主教一年中的禮儀節期，稱作「禮儀年」。其中包括了聖誕節、復活節和聖神降臨等節慶，用以紀念耶穌基督在世間的重大事蹟。</div><ul><li><b>將臨期</b>：為期四週左右，是耶穌降生前的準備期。</li><li><b>聖誕期</b>：從聖誕節到耶穌受洗日，為了紀念及慶祝耶穌降生成人。</li><li><b>四旬期</b>：復活節前對自身心靈的準備，為期六週左右。</li><li><b>逾越節三日慶典</b>：禮儀年的中心與高峰，最神聖的三天，目的是為了幫助信友紀念並在精神靈修上參與耶穌的受難、死亡和復活。</li><li><b>復活期</b>：從復活節到聖神降臨，歡慶五十天。</li><li><b>常年期</b>：第一分期在聖誕期之後，大約四至八週；第二分期則在復活期之後，為期約六個月。</li></ul><div class="foot"><span>感恩祭（彌撒）・天主教達拉斯耶穌聖心堂</span><span>26 / 26</span></div></section>
+
 </div></div>
 <div id="lightbox"><img id="lbimg" alt=""><div class="lbcap" id="lbcap"></div></div>
-<div id="hint">← → 翻頁・F 全螢幕・N 講稿・+ − 縮放文字・點畫放大</div>
+<div id="hint">← → 翻頁・F 全螢幕・+ − 縮放文字・點圖放大</div>
 <div id="counter"></div>
 <div id="zoomctl"><button id="zout" title="文字縮小">A−</button><span id="zoomLevel">100%</span><button id="zin" title="文字放大">A+</button></div>
 <script>
@@ -149,7 +186,6 @@ document.addEventListener('keydown',e=>{
     if(document.fullscreenElement)document.exitFullscreen();
     else document.documentElement.requestFullscreen().catch(()=>{});
   }
-  else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('show-notes');}
   else if(e.key==='+'||e.key==='='){zoomText(0.1);}
   else if(e.key==='-'||e.key==='_'){zoomText(-0.1);}
   else if(e.key==='0'){zoomText(0);}
