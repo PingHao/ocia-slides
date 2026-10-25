@@ -2,3 +2,8 @@
 
 __pycache__/
 
+# office lock files
+~$*
+
+# source decks (kept local, synced from google docs)
+*.pptx
