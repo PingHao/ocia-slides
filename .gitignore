@@ -7,3 +7,5 @@ __pycache__/
 
 # source decks (kept local, synced from google docs)
 *.pptx
+
+.workbuddy-ai/
